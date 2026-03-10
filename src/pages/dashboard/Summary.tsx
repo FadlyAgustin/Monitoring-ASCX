@@ -22,10 +22,6 @@ export default function Summary() {
   const [loading, setLoading] = useState(true)
 
   // ✅ USER ROLE CHECK
-  type User = {
-    role?: string
-  }
-  
   const role = localStorage.getItem('user_role') || ''
 
   const isLeader =

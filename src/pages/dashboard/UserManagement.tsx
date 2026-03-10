@@ -244,7 +244,6 @@ export default function UserManagement() {
                     <th className="px-4 py-3 font-medium text-left">Nama</th>
                     <th className="px-4 py-3 font-medium text-left">Email</th>
                     <th className="px-4 py-3 font-medium text-left">Role</th>
-                    <th className="px-4 py-3 font-medium text-left">Status</th>
                     <th className="px-4 py-3 font-medium text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -265,11 +264,6 @@ export default function UserManagement() {
                       {/* Role */}
                       <td className="px-4 py-3">
                         <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
-                      </td>
-
-                      {/* Status */}
-                      <td className="px-4 py-3">
-                        <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
                       </td>
 
                       {/* Aksi */}
@@ -311,7 +305,6 @@ export default function UserManagement() {
                     <th className="px-4 py-3 font-medium">Nama</th>
                     <th className="px-4 py-3 font-medium">Email</th>
                     <th className="px-4 py-3 font-medium">Role</th>
-                    <th className="px-4 py-3 font-medium">Status</th>
                     <th className="px-4 py-3 font-medium text-right">Aksi</th>
                   </tr>
                 </thead>
@@ -330,12 +323,6 @@ export default function UserManagement() {
 
                       <td className="px-4 py-3">
                         <RoleBadge role={user.role} />
-                      </td>
-
-                      <td className="px-4 py-3">
-                        <span className="text-xs text-gray-500">
-                          {user.status || '-'}
-                        </span>
                       </td>
 
                       <td className="px-4 py-3 text-right space-x-2">

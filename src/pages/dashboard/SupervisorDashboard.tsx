@@ -77,7 +77,7 @@ export default function SupervisorDashboard() {
   const [submitting, setSubmitting] = useState(false)
 
   const [jobTypes, setJobTypes] = useState<any[]>([])
-  const [loadingJobTypes, setLoadingJobTypes] = useState(true)
+  const [, setLoadingJobTypes] = useState(true)
 
   const fetchJobTypes = async () => {
     try {
@@ -577,7 +577,7 @@ const downloadZip = async (taskId:number) => {
     </td>
   </tr>
 ) : (
-        paginatedData.map((item, i) => (
+        paginatedData.map((item) => (
           <tr key={item.id} className={`border-t ${
             !item.is_seen_by_supervisor ? "bg-green-50 border-l-4 border-green-400" : ""
           }`}>

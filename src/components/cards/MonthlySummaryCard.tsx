@@ -106,28 +106,23 @@ export default function MonthlySummaryCard({
   let statusLabel = ''
   let statusColor: 'green' | 'yellow' | 'red' | 'blue' | 'gray' | 'purple'
   let statusDesc = ''
-  let statusIcon = ''
 
   if (progress >= 100) {
     statusLabel = '🔥 Target Tercapai'
     statusColor = 'green'
     statusDesc = 'Semua KPI berhasil diselesaikan dengan sangat baik.'
-    statusIcon = '🔥'
   } else if (progress >= 70) {
     statusLabel = '📈 Mendekati Target'
     statusColor = 'blue'
     statusDesc = 'Performa sudah baik, tinggal sedikit lagi mencapai target.'
-    statusIcon = '📈'
   } else if (progress >= 0) {
     statusLabel = 'Belum Ada Data KPI'
     statusColor = 'gray'
     statusDesc = 'Belum ada data KPI untuk bulan ini. Pastikan untuk mengisi target dan update progress secara rutin.'
-    statusIcon = ''
   } else {
     statusLabel = '⚠️ Di Bawah Target'
     statusColor = 'red'
     statusDesc = 'Perlu peningkatan fokus dan penyelesaian task.'
-    statusIcon = '⚠️'
   }
 
   /* ================= GROWTH ================= */
