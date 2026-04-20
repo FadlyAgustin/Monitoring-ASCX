@@ -43,6 +43,7 @@ interface TaskItemProps {
     user: {
       role: string
     }
+    delete_status?: 'none' | 'pending' | 'approved' | 'rejected'
     isOverdue?: boolean
   }
   onView: () => void
@@ -57,6 +58,7 @@ export default function TaskItem(
   onEdit,
   onDelete,
 }: TaskItemProps) {
+  
   return (
     <div className="bg-white rounded-xl shadow p-4 space-y-2">
       <div className="flex justify-between items-start">
@@ -92,12 +94,46 @@ export default function TaskItem(
         <Button size="sm" onClick={onView}>
           View
         </Button>
-        <Button size="sm" variant="warning" onClick={onEdit}>
+
+        {/* Disable Edit button if delete_status is pending, and show tooltip */} 
+        <Button
+          size="sm"
+          variant="warning"
+          onClick={onEdit}
+          disabled={task.delete_status?.toLowerCase() === 'pending'}
+          className={
+            task.delete_status?.toLowerCase() === 'pending'
+              ? 'opacity-50 cursor-not-allowed'
+              : ''
+          }
+          title={
+            task.delete_status?.toLowerCase() === 'pending'
+              ? 'Tidak bisa edit saat menunggu approval delete'
+              : 'Edit task'
+          }
+        >
           Edit
         </Button>
-        <Button size="sm" variant="danger" onClick={onDelete}>
-          Delete
-        </Button>
+
+        {/* Delete button logic: */} 
+        {task.delete_status?.toLowerCase() === 'pending' ? (
+          <Button size="sm" disabled className="bg-yellow-100 text-yellow-700">
+            ⏳ Waiting Approval
+          </Button>
+        ) : task.delete_status === 'rejected' ? (
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="danger" onClick={onDelete}>
+              Delete
+            </Button>
+            <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 whitespace-nowrap">
+              Rejected
+            </span>
+          </div>
+        ) : (
+          <Button size="sm" variant="danger" onClick={onDelete}>
+            Delete
+          </Button>
+        )}
       </div>
     </div>
   )

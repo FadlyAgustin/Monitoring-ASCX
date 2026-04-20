@@ -16,6 +16,8 @@ import { AuthProvider } from './pages/auth/AuthProvider'
 import { Toaster } from "react-hot-toast"
 import { UserRole } from './pages/auth/UserRole'
 import JobType from './pages/dashboard/JobType'
+import LogDelete from './pages/dashboard/LogDelete'
+import TaskRequestHistory from './pages/dashboard/TaskRequestHistory'
 
 function App() {
   return (
@@ -67,6 +69,7 @@ function App() {
                 <Route path="/leader" element={<SupervisorDashboard />} />
                 <Route path="/user-management" element={<UserManagement />} />
                 <Route path="/job-type" element={<JobType />} />
+                <Route path="/log-delete" element={<LogDelete />} />
               </Route>
             </Route>
 
@@ -74,6 +77,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route element={<DashboardLayout />}>
                 <Route path="/summary" element={<Summary />} />
+                <Route path="/task-request-logs" element={<TaskRequestHistory />} />
               </Route>
             </Route>
 

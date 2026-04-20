@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import api from '../../services/api'
-import { useAuth } from '../auth/useAuth'
 import Swal from 'sweetalert2'
+import { useAuth } from '../auth/useAuth'
 import TaskItem from '../../components/cards/TaskItem'
 import Modal from '../../components/ui/Modal'
 import Button from '../../components/common/Button'
@@ -69,6 +69,7 @@ import StaffRequestModal from '../../components/ui/StaffRequestModal'
     name: string
     role: string
   }
+  delete_status: 'none' | 'pending' | 'approved' | 'rejected'
 }
 
 function KanbanColumn({ title, color, count, children }: any) {
@@ -116,7 +117,7 @@ function EmptyState() {
       border-2 border-dashed rounded-lg
       py-10
     ">
-      Tidak ada task
+        No Tasks
       <div className="mt-2 text-xs">
         Drop task here
       </div>
@@ -192,6 +193,7 @@ function DraggableTask({ task, children }: any) {
 
 const mapTaskForCard = (task: Task) => ({
   ...task,
+  delete_status: task.delete_status ?? 'none',
   job_type: task.job_type?.name || '-',
   files: task.files.map(f => ({
     id: f.id,
@@ -448,7 +450,23 @@ export default function DailyTask() {
     })
   }
   
-  const handleDelete = async (id: number) => {
+  const [deleteId, setDeleteId] = useState<number | null>(null)
+  const [deleteReason, setDeleteReason] = useState("")
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+
+  const handleDelete = (id: number) => {
+    if (
+      userRole === 'ASSISTANT_MANAGER_ASCX'
+    ) {
+      // 🚀 langsung delete tanpa modal
+      submitDeleteDirect(id)
+    } else {
+      setDeleteId(id)
+      setOpenDeleteModal(true)
+    }
+  }
+
+  const submitDeleteDirect = async (id: number) => {
     const result = await Swal.fire({
       title: 'Hapus Task?',
       text: 'Task yang dihapus tidak dapat dikembalikan.',
@@ -482,6 +500,56 @@ export default function DailyTask() {
         text: 'Task gagal dihapus.',
         icon: 'error',
       })
+    }
+  }
+  
+  const submitDelete = async () => {
+    try {
+      if (
+        userRole === 'ASSISTANT_MANAGER_ASCX'
+      ) {
+        
+        await api.post(`/tasks/${deleteId}`, {
+          _method: 'DELETE'
+        })
+  
+        toast.success("Task berhasil dihapus")
+  
+      } else {
+        if (!deleteReason || deleteReason.trim().length < 5) {
+          toast.error("Alasan minimal 5 karakter")
+          return
+        }
+  
+        await api.post(`/tasks/${deleteId}`, {
+          _method: 'DELETE',
+          delete_reason: deleteReason
+        })
+
+        setTasks(prev =>
+          prev.map(t =>
+            t.id === deleteId
+              ? { ...t, delete_status: 'pending' }
+              : t
+          )
+        )
+  
+        toast.success("Request delete dikirim")
+      }
+  
+      setOpenDeleteModal(false)
+      setDeleteReason("")
+      setTimeout(() => {
+        fetchTasks()
+      }, 2000)
+  
+    } catch (err: any) {
+      const message =
+        err.response?.data?.errors?.delete_reason?.[0] ||
+        err.response?.data?.message ||
+        "Gagal proses delete"
+    
+      toast.error(message)
     }
   }
 
@@ -1319,6 +1387,44 @@ const POSITION_OPTIONS =
   )}
 </Modal>
 
+<Modal
+  open={openDeleteModal}
+  title="Request Delete Task"
+  onClose={() => setOpenDeleteModal(false)}
+>
+  <div className="space-y-4">
+    
+  <textarea
+  value={deleteReason}
+  onChange={(e) => setDeleteReason(e.target.value)}
+  className="w-full border rounded p-2"
+/>
+
+{deleteReason.trim().length > 0 && deleteReason.trim().length < 5 && (
+  <p className="text-xs text-red-500">
+    Minimal 5 karakter (tanpa spasi kosong)
+  </p>
+)}
+
+    <div className="flex justify-end gap-2">
+      <button onClick={() => setOpenDeleteModal(false)}>
+        Batal
+      </button>
+
+      <button
+        onClick={submitDelete}
+        disabled={deleteReason.trim().length < 5}
+        className="
+          px-4 py-2 rounded text-white
+          bg-red-600 disabled:bg-gray-400
+        "
+      >
+        Kirim
+      </button>
+    </div>
+
+  </div>
+</Modal>
     </div>
   )
 }

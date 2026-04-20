@@ -901,7 +901,7 @@ const downloadZip = async (taskId:number) => {
 {/* Create Task Modal */}
 <Modal
   open={openAssign}
-  title="Tambahkan Task ke Staff"
+  title="Tambahkan Task ke Staff/Supervisor"
   onClose={() => setOpenAssign(false)}
 >
   <div className="space-y-4">

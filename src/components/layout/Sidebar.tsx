@@ -54,6 +54,18 @@ const menus: {
     roles: staffRoles,
   },
   {
+    to: '/task-request-logs',
+    label: 'Request History',
+    icon: '📜',
+    roles: allRoles, // semua boleh
+  },
+  {
+    to: '/log-delete',
+    label: 'Task Delete',
+    icon: '🗑️',
+    roles: leaderRoles,
+  },
+  {
     to: '/summary',
     label: 'Summary',
     icon: '📅',
@@ -70,7 +82,7 @@ const menus: {
     label: 'Job Type',
     icon: '⚙️',
     roles: leaderRoles,
-  }
+  },
 ]
 
 /* ================= COMPONENT ================= */

@@ -46,12 +46,13 @@ export default function UserManagement() {
     } catch {
       toast.error('Gagal ambil data')
     } finally {
-      setLoading(false)
+        setLoading(false)
     }
   }
 
   
   useEffect(() => {
+    setLoading(true)
     setPage(1)
   }, [debouncedSearch, role])
   
@@ -183,12 +184,15 @@ export default function UserManagement() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       {/* FILTER */}
       <div className="flex flex-col sm:flex-row gap-2 w-full">
-        
+      {loading ? (
+          <div className="h-10 w-full sm:w-auto md:w-64 bg-gray-200 animate-pulse rounded-lg" />
+        ) : (
         <input
           placeholder="Cari user..."
           className="border px-3 py-2 rounded-lg text-sm w-full sm:w-64 min-w-0"
           onChange={(e) => setSearch(e.target.value)}
         />
+        )}
         
 
         {loading ? (

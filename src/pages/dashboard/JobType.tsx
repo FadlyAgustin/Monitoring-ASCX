@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { createPortal } from 'react-dom'
 import { useDebounce } from '../../components/ui/useDebounce'
 import Modal from '../../components/ui/Modal'
+import JobTypeHeaderSkeleton from '../skeleton/JobTypeHeaderSkeleton'
 
 export default function JobType() {
   const [data, setData] = useState<any[]>([])
@@ -141,6 +142,9 @@ export default function JobType() {
       <div className="space-y-6">
 
         {/* HEADER */}
+        {loading ? (
+          <JobTypeHeaderSkeleton />
+        ) : (
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">Job Type</h1>
@@ -160,6 +164,7 @@ export default function JobType() {
             + Tambah
           </button>
         </div>
+        )}
 
         {/* FILTER */}
         <div className="flex gap-2">

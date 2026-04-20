@@ -19,8 +19,6 @@ type JobType = {
 
 export default function StaffRequestModal({ open, onClose, users, user, jobTypes }: Props) {
 
-
-
     const [form, setForm] = useState({
       user_id: "",
       deadline: "",
