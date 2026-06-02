@@ -442,7 +442,7 @@ const downloadZip = async (taskId:number) => {
               }}
               className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto"
             >
-              <option value="all">Semua Bulan</option>
+              <option value="all">Pilih Bulan</option>
               {Array.from({ length: 12 }).map((_, i) => {
                 const m = String(i + 1).padStart(2, '0')
                 return (
