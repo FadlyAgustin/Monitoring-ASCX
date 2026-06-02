@@ -1292,7 +1292,7 @@ const POSITION_OPTIONS =
       {/* Activity */}
       <div>
         <p className="text-gray-500 mb-1">Aktivitas</p>
-        <p className="bg-gray-50 p-3 rounded-lg">
+        <p className="bg-gray-50 p-3 rounded-lg whitespace-pre-line break-words">
           {viewTask.activity}
         </p>
       </div>
