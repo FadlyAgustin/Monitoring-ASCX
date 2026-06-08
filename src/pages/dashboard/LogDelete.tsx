@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import api from "../../services/api"
-import { useAuth } from "../auth/useAuth"
+import { useAuth } from "../auth/AuthContext"
 import toast from "react-hot-toast"
 import Swal from "sweetalert2"
 import { Check, X } from "lucide-react"

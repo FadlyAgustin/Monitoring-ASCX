@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useAuth } from '../auth/useAuth'
+import { useAuth } from '../auth/AuthContext'
 import { UserRole } from '../auth/UserRole'
+import AppLoading from '../../components/common/AppLoading'
 
 type Props = {
   allow?: UserRole[]
@@ -10,13 +11,15 @@ export default function ProtectedRoute({ allow }: Props) {
   const token = localStorage.getItem('token')
   const { user, loading } = useAuth()
 
+  // masih loading user
+  if (loading) {
+    return <AppLoading />
+  }
+
   // belum login
   if (!token) {
     return <Navigate to="/login" replace />
   }
-
-  // masih loading user
-  if (loading) return null
 
   // kalau route punya batasan role
   if (allow && user && !allow.includes(user.role)) {

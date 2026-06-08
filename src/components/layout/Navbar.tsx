@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useState, useRef, useEffect } from 'react'
-import { useAuth } from '../../pages/auth/useAuth'
+import { useAuth } from '../../pages/auth/AuthContext'
 
 interface NavbarProps {
   onMenuClick: () => void

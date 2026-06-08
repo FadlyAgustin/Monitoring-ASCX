@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import DashboardLayout from '../src/auth/DashboardLayout'
 import AuthLayout from '../src/auth/AuthLayout'
@@ -11,7 +11,6 @@ import DailyTask from '../src/pages/dashboard/DailyTask'
 import Summary from '../src/pages/dashboard/Summary'
 import SupervisorDashboard from '../src/pages/dashboard/SupervisorDashboard'
 import UserManagement from '../src/pages/dashboard/UserManagement'
-import { AuthProvider } from './pages/auth/AuthProvider'
 
 import { Toaster } from "react-hot-toast"
 import { UserRole } from './pages/auth/UserRole'
@@ -20,12 +19,12 @@ import LogDelete from './pages/dashboard/LogDelete'
 import TaskRequestHistory from './pages/dashboard/TaskRequestHistory'
 
 function App() {
+
   return (
     <>
       <Toaster position="top-right" />
 
-      <AuthProvider>
-        <BrowserRouter>
+      
           <Routes>
 
             {/* AUTH */}
@@ -82,8 +81,6 @@ function App() {
             </Route>
 
           </Routes>
-        </BrowserRouter>
-      </AuthProvider>
     </>
   )
 }

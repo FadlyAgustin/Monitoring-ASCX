@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../../src/components/layout/Sidebar'
 import Navbar from '../../src/components/layout//Navbar'
-import { useAuth } from '../pages/auth/useAuth'
+import { useAuth } from '../pages/auth/AuthContext'
 import AppLoading from '../components/common/AppLoading'
 
 export default function DashboardLayout() {

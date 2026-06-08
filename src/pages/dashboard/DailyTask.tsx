@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import api from '../../services/api'
 import Swal from 'sweetalert2'
-import { useAuth } from '../auth/useAuth'
+import { useAuth } from '../auth/AuthContext'
 import TaskItem from '../../components/cards/TaskItem'
 import Modal from '../../components/ui/Modal'
 import Button from '../../components/common/Button'

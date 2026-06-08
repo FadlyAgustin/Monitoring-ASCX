@@ -1,7 +1,7 @@
 import { Users } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useAuth } from '../../pages/auth/useAuth'
+import { useAuth } from '../../pages/auth/AuthContext'
 import { UserRole } from '../../pages/auth/UserRole'
 
 /* ================= ROLE GROUP ================= */

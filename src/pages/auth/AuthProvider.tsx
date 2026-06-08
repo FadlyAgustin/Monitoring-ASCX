@@ -8,21 +8,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    let mounted = true
 
+    const token = localStorage.getItem('token')
     if (!token) {
       setLoading(false)
       return
     }
 
-    api
-      .get('/me')
-      .then(res => setUser(res.data))
+    api.get('/me')
+      .then(res => {
+        if (mounted) setUser(res.data)
+      })
       .catch(() => {
         localStorage.removeItem('token')
-        setUser(null)
+        if (mounted) setUser(null)
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        if (mounted) setLoading(false)
+      })
+
+    return () => {
+      mounted = false
+    }
   }, [])
 
   const logout = async () => {
@@ -37,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, logout, isAuthenticated: !!user, }}>
       {children}
     </AuthContext.Provider>
   )
