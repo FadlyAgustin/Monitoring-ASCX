@@ -17,6 +17,7 @@ import { UserRole } from './pages/auth/UserRole'
 import JobType from './pages/dashboard/JobType'
 import LogDelete from './pages/dashboard/LogDelete'
 import TaskRequestHistory from './pages/dashboard/TaskRequestHistory'
+import GuestRoute from './pages/auth/GuestRoute'
 
 function App() {
 
@@ -29,7 +30,9 @@ function App() {
 
             {/* AUTH */}
             <Route element={<AuthLayout />}>
-              <Route path="/login" element={<Login />} />
+              <Route element={<GuestRoute />}>
+                <Route path="/login" element={<Login />} />
+              </Route>
             </Route>
 
             {/* ===== STAFF ONLY ===== */}

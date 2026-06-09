@@ -18,10 +18,10 @@ export default function DashboardLayout() {
         onClose={() => setSidebarOpen(false)}
       />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 min-w-0">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="p-4 md:p-6 overflow-y-auto">
+        <main className="min-w-0 p-4 md:p-6 overflow-y-auto">
           <Outlet />
         </main>
       </div>

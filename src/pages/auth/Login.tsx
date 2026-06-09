@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { api } from '../../services/api'
 import { useNavigate } from "react-router-dom"
 import { UserRole } from './UserRole'
+import { useAuth } from './AuthContext'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -9,30 +10,34 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const { setUser } = useAuth()
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-  
-    try {
-      // LOGIN
-      const res = await api.post('/login', {
-        email,
-        password,
-      })
-  
-      // SIMPAN TOKEN
-      localStorage.setItem('token', res.data.token)
-  
-      // AMBIL DATA USER
-      const me = await api.get('/me')
-      const user = me.data
+  e.preventDefault()
+  setLoading(true)
+  setError('')
 
-      localStorage.setItem("user_id", user.id);
-      localStorage.setItem("user_role", user.role);
-  
-      // REDIRECT BERDASARKAN ROLE
+  try {
+    // LOGIN
+    const res = await api.post('/login', {
+      email,
+      password,
+    })
+
+    // SIMPAN TOKEN SAJA
+    localStorage.setItem('token', res.data.token)
+
+    const me = await api.get('/me')
+
+    setUser(me.data)
+
+    // OPTIONAL: simpan kalau backend kasih user di login response
+    const user = res.data.user
+
+    if (user) {
+      localStorage.setItem("user_id", user.id)
+      localStorage.setItem("user_role", user.role)
+
       if (
         user.role === UserRole.SUPERVISOR_ASCX ||
         user.role === UserRole.ASSISTANT_MANAGER_ASCX
@@ -41,13 +46,17 @@ export default function Login() {
       } else {
         navigate('/dashboard', { replace: true })
       }
-  
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login gagal')
-    } finally {
-      setLoading(false)
+    } else {
+      // fallback: paksa AuthProvider reload user
+      window.location.href = '/dashboard'
     }
-  }  
+
+  } catch (err: any) {
+    setError(err.response?.data?.message || 'Login gagal')
+  } finally {
+    setLoading(false)
+  }
+}
 
   return (
     <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">

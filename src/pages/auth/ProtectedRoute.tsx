@@ -11,14 +11,14 @@ export default function ProtectedRoute({ allow }: Props) {
   const token = localStorage.getItem('token')
   const { user, loading } = useAuth()
 
-  // masih loading user
-  if (loading) {
-    return <AppLoading />
+  // belum login
+  if (!user) {
+    return <Navigate to="/login" replace />
   }
 
-  // belum login
-  if (!token) {
-    return <Navigate to="/login" replace />
+  // loading hanya valid kalau token ada
+  if (loading && token) {
+    return <AppLoading />
   }
 
   // kalau route punya batasan role

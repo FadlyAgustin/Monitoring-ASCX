@@ -13,6 +13,9 @@ interface AuthContextType {
   loading: boolean
   logout: () => void
   isAuthenticated: boolean
+  setUser: React.Dispatch<
+    React.SetStateAction<AuthUser | null>
+  >
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)

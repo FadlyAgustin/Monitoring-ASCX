@@ -73,9 +73,13 @@ export default function TaskItem(
         </div>
 
         <div className="flex flex-col gap-2 items-end">
-        <Badge color={jobTypeColor(task.job_type)}>
-          {task.job_type}
-        </Badge>
+        <div className="max-w-[120px]" title={task.job_type}>
+          <Badge color={jobTypeColor(task.job_type)}>
+            <span className="truncate block">
+              {task.job_type}
+            </span>
+          </Badge>
+        </div>
         <Badge
           color={
             task.status === 'Done'

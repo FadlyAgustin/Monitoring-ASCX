@@ -8,44 +8,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let mounted = true
+    const init = async () => {
+      const token = localStorage.getItem('token')
 
-    const token = localStorage.getItem('token')
-    if (!token) {
-      setLoading(false)
-      return
-    }
+      if (!token) {
+        setUser(null)
+        setLoading(false)
+        return
+      }
 
-    api.get('/me')
-      .then(res => {
-        if (mounted) setUser(res.data)
-      })
-      .catch(() => {
+      try {
+        const res = await api.get('/me')
+        setUser(res.data)
+      } catch {
         localStorage.removeItem('token')
-        if (mounted) setUser(null)
-      })
-      .finally(() => {
-        if (mounted) setLoading(false)
-      })
-
-    return () => {
-      mounted = false
+        setUser(null)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    init()
   }, [])
 
   const logout = async () => {
     try {
       await api.post('/logout')
     } catch {}
-    finally {
-      localStorage.removeItem('token')
-      setUser(null)
-      window.location.href = '/login'
-    }
+
+    localStorage.removeItem('token')
+    setUser(null)
   }
 
+  const isAuthenticated = !!user
+
   return (
-    <AuthContext.Provider value={{ user, loading, logout, isAuthenticated: !!user, }}>
+   <AuthContext.Provider value={{ user, setUser, loading, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

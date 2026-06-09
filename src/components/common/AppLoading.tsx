@@ -35,7 +35,7 @@ export default function AppLoading() {
         </div>
 
         {/* Radar */}
-        <div className="relative mb-8 h-32 w-32">
+        <div className="relative mb-8 h-48 w-48">
 
           {/* Ring 1 */}
           <div className="absolute inset-0 rounded-full border border-sky-500/20" />
@@ -64,7 +64,7 @@ export default function AppLoading() {
         </div>
 
         {/* Status */}
-        <div className="w-full max-w-sm rounded-xl border border-sky-500/20 bg-slate-900/90 p-4 backdrop-blur">
+        <div className="w-full max-w-sm rounded-xl border border-sky-500/20 bg-slate-900/60 p-4 backdrop-blur">
           <p className="mb-4 text-center text-sm text-slate-300">
             Memuat Sistem Monitoring ASCX
           </p>

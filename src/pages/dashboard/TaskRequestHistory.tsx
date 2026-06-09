@@ -94,13 +94,13 @@ export default function TaskRequestHistory() {
     ) : (
       <>
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold mb-4">
+          <h1 className="text-xl sm:text-2xl font-bold mb-4">
             Task Request History
           </h1>
         </div>
 
-        <div className="flex justify-end items-center">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-end">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <input
               type="date"
               className="border rounded-lg px-3 py-1 text-sm"
@@ -144,14 +144,14 @@ export default function TaskRequestHistory() {
         🚫 No History Data
       </div>
     ) : (
-      <div className="space-y-3">
+      <div className="space-y-5 overflow-hidden">
         {logs.map((log) => (
           <div
             key={log.id}
-            className="bg-white border rounded-xl p-4 shadow-sm hover:shadow-md transition"
+            className="bg-white border rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition"
           >
             {/* 🔥 ACTIVITY */}
-            <div className="flex justify-between items-start border-b pb-2 mb-2 gap-2">
+            <div className="flex flex-col sm:flex-row justify-between items-start border-b pb-2 mb-2 gap-2">
               <h2
                 className="font-medium text-sm line-clamp-1"
                 title={log.activity}
@@ -167,7 +167,7 @@ export default function TaskRequestHistory() {
             </div>
 
             {/* 👥 FROM → TO */}
-            <div className="flex justify-between items-center text-xs">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
               <div>
                 <p className="text-gray-400">From</p>
                 <p className={`font-medium ${roleColor(log.requester?.role)}`}>
@@ -175,7 +175,7 @@ export default function TaskRequestHistory() {
                 </p>
               </div>
 
-              <div className="text-gray-300 text-lg">→</div>
+              <div className="text-gray-300 text-lg rotate-90 sm:rotate-0">→</div>
 
               <div className="text-right">
                 <p className="text-gray-400">To</p>
@@ -190,7 +190,7 @@ export default function TaskRequestHistory() {
               <div className="mt-3 border-t pt-2">
                 <p className="text-[11px] text-gray-400 mb-1">📎 Attachments</p>
 
-                <div className="flex flex-wrap gap-2 max-h-20 overflow-y-auto">
+                <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
                   
                   {/* 🔗 LINK */}
                   {log.task?.link && (
@@ -230,7 +230,7 @@ export default function TaskRequestHistory() {
             )}
 
             {/* 📅 DATE */}
-            <div className="flex justify-between items-center text-xs mt-2 text-gray-400">
+            <div className="flex flex-col sm:flex-row justify-between gap-1 text-xs mt-2 text-gray-400">
               <div>⏰ Deadline: {formatDate(log.task?.deadline)}</div>
               <div>📅 Request Date: {formatDate(log.requested_at)}</div>
             </div>
@@ -255,7 +255,7 @@ export default function TaskRequestHistory() {
     </div>
 
     {/* 📄 PAGINATION */}
-    <div className="flex justify-center items-center gap-2 mt-4">
+    <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
       <button
         disabled={page === 1}
         onClick={() => fetchLogs(page - 1)}
