@@ -12,7 +12,7 @@ export default function ProtectedRoute({ allow }: Props) {
   const { user, loading } = useAuth()
 
   // belum login
-  if (!user) {
+  if (!token) {
     return <Navigate to="/login" replace />
   }
 
