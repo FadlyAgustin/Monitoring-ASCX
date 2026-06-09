@@ -98,7 +98,27 @@ export default function MonthlySummaryCard({
     )
   }
 
-  if (!data) return null
+  if (!data) {
+  return (
+    <div className="bg-white rounded-xl shadow p-6 space-y-6">
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800">
+            Ringkasan Bulanan
+          </h3>
+          <p className="text-xs text-gray-500">
+            {monthLabel} {year}
+          </p>
+        </div>
+      </div>
+      <div className="text-center py-10 border rounded-lg">
+        <p className="text-gray-500 text-sm">
+          Belum ada data summary bulanan
+        </p>
+      </div>
+    </div>
+  )
+}
 
   const { total, done, pending, progress } = data
 
