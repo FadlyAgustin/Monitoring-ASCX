@@ -100,13 +100,14 @@ export default function MonthlySummaryCard({
 
   if (!data) {
   return (
-    <div className="bg-white rounded-xl shadow p-6 space-y-6">
+    <div className="bg-white dark:bg-slate-900 rounded-xl shadow p-6 space-y-6
+                text-gray-900 dark:text-white">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
             Ringkasan Bulanan
           </h3>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-slate-400">
             {monthLabel} {year}
           </p>
         </div>
@@ -189,7 +190,7 @@ export default function MonthlySummaryCard({
       </div>
 
       {/* STATS */}
-      <div className="grid bg-gray-100 p-3 rounded-lg gap-3 text-sm border-t pt-4">
+      <div className="grid bg-gray-100 dark:bg-slate-800 p-3 rounded-lg gap-3 text-sm border-t pt-4">
         <Stat label="Total KPI" value={String(total)} icon="🎯" />
         <Stat label="Selesai" value={String(done)} badge="green" icon="✅" />
         <Stat label="Pending" value={String(pending)} badge="red" icon="⏳" />
@@ -203,7 +204,7 @@ export default function MonthlySummaryCard({
           <span className="font-medium text-gray-700">{progress}%</span>
         </div>
 
-        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
           <div
             className={`h-3 rounded-full transition-all duration-500 ${
               progress >= 100
@@ -230,7 +231,7 @@ export default function MonthlySummaryCard({
       )}
 
       {/* INSIGHT */}
-      <div className="bg-gray-50 border rounded-lg p-3">
+      <div className="bg-gray-50 dark:bg-slate-800 border dark:border-slate-700 rounded-lg p-3">
         <p className="text-xs font-semibold text-gray-700 mb-1">
           Insight KPI
         </p>

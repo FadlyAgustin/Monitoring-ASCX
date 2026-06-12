@@ -16,15 +16,20 @@ export default function StatCard({
   return (
     <div
       className="
-        bg-white rounded-xl
-        p-5 shadow-sm border
-        hover:shadow-md transition
+        bg-white dark:bg-slate-900
+        border border-gray-200 dark:border-slate-800
+        text-gray-900 dark:text-white
+        rounded-xl
+        p-5
+        shadow-sm
+        hover:shadow-md
+        transition
       "
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-500">{title}</p>
-          <h3 className="text-2xl font-bold text-gray-900">
+          <p className="text-sm text-gray-600 dark:text-white">{title}</p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
             {value}
           </h3>
         </div>
@@ -37,7 +42,7 @@ export default function StatCard({
       </div>
 
       {description && (
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-gray-500 dark:text-slate-400 mt-2">
           {description}
         </p>
       )}

@@ -132,6 +132,8 @@ export default function StaffRequestModal({ open, onClose, users, user, jobTypes
     }
   };
 
+  const isDark = document.documentElement.classList.contains('dark')
+
   return (
     <Modal
     open={open}
@@ -139,7 +141,7 @@ export default function StaffRequestModal({ open, onClose, users, user, jobTypes
     onClose={onClose}
     >
 
-        <label className="text-sm font-medium">Pilih Supervisor & Staff</label>
+        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Pilih Supervisor & Staff</label>
         {/* Assign To */}
        
         <Select
@@ -155,25 +157,72 @@ export default function StaffRequestModal({ open, onClose, users, user, jobTypes
             setSelectedUser(selected);
             setForm({ ...form, user_id: selected?.value || "" });
           }}
+          styles={{
+          control: (base) => ({
+            ...base,
+            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+            borderColor: isDark ? '#334155' : '#d1d5db',
+            color: isDark ? '#ffffff' : '#111827',
+          }),
+
+          menu: (base) => ({
+            ...base,
+            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+          }),
+
+          option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isFocused
+              ? isDark
+                ? '#334155'
+                : '#f3f4f6'
+              : isDark
+              ? '#1e293b'
+              : '#ffffff',
+            color: isDark ? '#ffffff' : '#111827',
+            cursor: 'pointer',
+          }),
+
+          singleValue: (base) => ({
+            ...base,
+            color: isDark ? '#ffffff' : '#111827',
+          }),
+
+          input: (base) => ({
+            ...base,
+            color: isDark ? '#ffffff' : '#111827',
+          }),
+
+          placeholder: (base) => ({
+            ...base,
+            color: isDark ? '#94a3b8' : '#6b7280',
+          }),
+        }}
         />
 
         {/* Deadline */}
-        <label className="text-sm font-medium">Deadline</label>
+        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Deadline</label>
         <input
           type="datetime-local"
           value={form.deadline}
           onChange={e => setForm({ ...form, deadline: e.target.value })}
-          className="w-full border rounded-lg px-3 py-2 text-sm mb-3"
+          className="w-full border rounded-lg px-3 py-2 text-sm mb-3
+                    bg-white dark:bg-slate-800
+                    text-gray-900 dark:text-white
+                    border-gray-300 dark:border-slate-700"
         />
 
         {/* Job Type */}
-        <label className="text-sm font-medium">Kategori Pekerjaan</label>
+        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Kategori Pekerjaan</label>
         <select
           value={form.job_type_id}
           onChange={e =>
             setForm({ ...form, job_type_id: Number(e.target.value) })
           }
-          className="w-full border rounded-lg px-3 py-2 text-sm mb-3"
+          className="w-full border rounded-lg px-3 py-2 text-sm mb-3
+                    bg-white dark:bg-slate-800
+                    text-gray-900 dark:text-white
+                    border-gray-300 dark:border-slate-700"
         >
           <option value={0}>Pilih kategori</option>
 
@@ -185,18 +234,25 @@ export default function StaffRequestModal({ open, onClose, users, user, jobTypes
         </select>
 
         {/* Activity */}
-        <label className="text-sm font-medium">Aktivitas</label>
+        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Aktivitas</label>
         <textarea
           rows={4}
           placeholder="Activity"
           value={form.activity}
           onChange={e => setForm({ ...form, activity: e.target.value })}
-          className="w-full border rounded-lg px-3 py-2 text-sm mb-3"
+          className="w-full border rounded-lg px-3 py-2 text-sm mb-3
+                    bg-white dark:bg-slate-800
+                    text-gray-900 dark:text-white
+                    border-gray-300 dark:border-slate-700"
         />
 
         {/* Actions */}
         <div className="flex justify-end gap-2">
-          <button onClick={onClose}>Batal</button>
+          <button onClick={onClose} className="
+            px-4 py-2 rounded-lg
+            bg-gray-200 text-gray-700
+            dark:bg-slate-700 dark:text-slate-200
+          ">Batal</button>
           <button
             onClick={handleSubmit}
             disabled={!isValid || loading || jobTypes.length === 0}

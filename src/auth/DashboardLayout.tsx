@@ -12,7 +12,19 @@ export default function DashboardLayout() {
 
   if (loading) return <AppLoading />
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex
+    min-h-screen
+
+    bg-gradient-to-br
+    from-slate-50
+    via-white
+    to-cyan-50
+
+    dark:from-slate-950
+    dark:via-slate-950
+    dark:to-slate-900
+
+    transition-colors">
       <Sidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -21,7 +33,11 @@ export default function DashboardLayout() {
       <div className="flex flex-col flex-1 min-w-0">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="min-w-0 p-4 md:p-6 overflow-y-auto">
+        <main className=" min-w-0
+          p-4 md:p-6
+          overflow-y-auto
+          text-gray-900
+          dark:text-slate-100">
           <Outlet />
         </main>
       </div>

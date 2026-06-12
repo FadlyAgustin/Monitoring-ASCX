@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { UserRole } from './UserRole'
 import { useAuth } from './AuthContext'
 import { Plane } from 'lucide-react'
+import { useDarkMode } from '../../components/ui/DarkMode'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -12,6 +13,11 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { setUser } = useAuth()
+  const { darkMode } = useDarkMode()
+
+  const textBase = darkMode ? 'text-white' : 'text-slate-900'
+  const textMuted = darkMode ? 'text-slate-400' : 'text-slate-600'
+  const cardClass = darkMode ? 'bg-white/5 text-white' : 'bg-slate-100 text-slate-900'
 
   const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault()
@@ -60,7 +66,7 @@ export default function Login() {
 }
 
 return (
-  <div className="w-full min-h-screen bg-slate-950 flex overflow-hidden">
+  <div className={`w-full min-h-screen flex overflow-hidden transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}>
 
     {/* LEFT PANEL */}
     <div className="hidden lg:flex lg:w-3/5 relative">
@@ -82,59 +88,62 @@ return (
       <div className="relative z-10 flex flex-col justify-center px-20 text-white">
 
         <div className="mb-6">
-          <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-sm">
+          <span className="px-3 py-1 rounded-full text-sm
+  bg-cyan-100 text-cyan-700 border border-cyan-200
+  dark:bg-cyan-500/10 dark:text-cyan-300 dark:border-cyan-500/20">
             Internal Monitoring System
           </span>
         </div>
 
-        <h1 className="text-6xl font-bold leading-tight">
+        <h1 className={`text-6xl font-bold leading-tight ${textBase}`}>
           Airport Service
           <br />
           Customer Experience
         </h1>
 
-        <p className="mt-6 text-slate-400 text-lg max-w-xl">
+        <p className={`mt-6 text-lg max-w-xl ${textMuted}`}>
            Monitoring pekerjaan harian, target KPI, produktivitas,
           dan performa tim ASCX dalam satu dashboard terintegrasi.
         </p>
 
         {/* Statistics */}
         <div className="grid grid-cols-2 gap-4 mt-10">
-  <div className="bg-white/5 backdrop-blur rounded-2xl p-5">
-    <div className="text-cyan-400 text-xl mb-2">📋</div>
-    <div className="text-white font-medium">Task Monitoring</div>
-    <div className="text-slate-400 text-sm">
-      Monitoring pekerjaan harian staff
-    </div>
-  </div>
 
-  <div className="bg-white/5 backdrop-blur rounded-2xl p-5">
+        <div className={`${cardClass} backdrop-blur rounded-2xl p-5`}>
+          <div className="text-cyan-400 text-xl mb-2">📋</div>
+          <div className="text-slate-900 dark:text-white">Task Monitoring</div>
+          <div className="text-slate-600 dark:text-slate-400 text-sm">
+            Monitoring pekerjaan harian staff
+          </div>
+        </div>
+
+  <div className={`${cardClass} backdrop-blur rounded-2xl p-5`}>
     <div className="text-cyan-400 text-xl mb-2">🎯</div>
-    <div className="text-white font-medium">KPI Tracking</div>
-    <div className="text-slate-400 text-sm">
+    <div className="text-slate-900 dark:text-white">KPI Tracking</div>
+    <div className="text-slate-600 dark:text-slate-400 text-sm">
       Evaluasi target dan pencapaian KPI
     </div>
   </div>
 
-  <div className="bg-white/5 backdrop-blur rounded-2xl p-5">
+  <div className={`${cardClass} backdrop-blur rounded-2xl p-5`}>
     <div className="text-cyan-400 text-xl mb-2">👥</div>
-    <div className="text-white font-medium">Team Management</div>
-    <div className="text-slate-400 text-sm">
+    <div className="text-slate-900 dark:text-white">Team Management</div>
+    <div className="text-slate-600 dark:text-slate-400 text-sm">
       Monitoring staff dan supervisor
     </div>
   </div>
 
-  <div className="bg-white/5 backdrop-blur rounded-2xl p-5">
+  <div className={`${cardClass} backdrop-blur rounded-2xl p-5`}>
     <div className="text-cyan-400 text-xl mb-2">📈</div>
-    <div className="text-white font-medium">Performance Report</div>
-    <div className="text-slate-400 text-sm">
+    <div className="text-slate-900 dark:text-white">Performance Report</div>
+    <div className="text-slate-600 dark:text-slate-400 text-sm">
       Summary dan insight performa
     </div>
   </div>
 </div>
 
         {/* Footer */}
-        <div className="mt-16 text-slate-500 text-sm">
+        <div className={`mt-16 text-sm ${textMuted}`}>
           Airport Service & Costumer Experience - Bandara Halim Perdanakusuma
         </div>
 
@@ -147,7 +156,7 @@ return (
       <div
         className="
           w-full max-w-md
-          bg-white dark:bg-slate-900
+          bg-white dark:bg-slate-800
           rounded-3xl
           shadow-2xl
           border

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 interface ModalProps {
   open: boolean
-  title?: string
+  title?: ReactNode
   onClose: () => void
   children: ReactNode
 }
@@ -18,27 +18,29 @@ export default function Modal({
 
   return createPortal(
     <div className="fixed inset-0 z-[999] flex items-center justify-center">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
 
-      {/* Modal box */}
       <div
         className="
-          relative z-[1000]
-          bg-white rounded-xl shadow-xl
-          w-full max-w-lg
-          p-6
-          max-h-[90vh] overflow-y-auto
+        relative z-[1000]
+        bg-white dark:bg-slate-900
+        text-gray-900 dark:text-white
+        border border-gray-200 dark:border-slate-800
+        rounded-xl shadow-xl
+        w-full max-w-lg
+        p-6
+        max-h-[90vh] overflow-y-auto
         "
       >
         {title && (
-          <h3 className="text-lg font-semibold mb-4">
+          <div className="mb-4">
             {title}
-          </h3>
+          </div>
         )}
+
         {children}
       </div>
     </div>,

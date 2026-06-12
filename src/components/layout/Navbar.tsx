@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Moon, Sun } from 'lucide-react'
+import { useDarkMode } from '../../components/ui/DarkMode'
 import { toast } from 'react-hot-toast'
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../pages/auth/AuthContext'
@@ -27,16 +29,21 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
+  // state untuk modal edit profile
   const [openProfile, setOpenProfile] = useState(false)
 
+  // form state untuk edit profile
   const [formProfile, setFormProfile] = useState({
     name: user?.name || '',
     email: user?.email || '',
     password: '',
     role: user?.role || '',
   })
+
+  // state untuk loading saat simpan profile
   const [saving, setSaving] = useState(false)
 
+  // handle update profile
   const handleUpdateProfile = async () => {
     const toastId = toast.loading("Menyimpan...")
     try {
@@ -79,6 +86,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
   }
 }
 
+  const { darkMode, setDarkMode } = useDarkMode()
+
   useEffect(() => {
     if (user) {
       setFormProfile({
@@ -96,8 +105,9 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       <header
         className="
           sticky top-0 z-20
-          bg-white/90 backdrop-blur
-          border-b border-gray-200
+          bg-white/90 dark:bg-slate-900/90
+          backdrop-blur
+          border-b border-gray-200 dark:border-slate-700
           px-6 py-4
           flex justify-between items-center
         "
@@ -116,13 +126,26 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     )
   }  
 
+  const inputClass = `
+  w-full
+  border
+  border-gray-300 dark:border-slate-700
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white
+  placeholder:text-gray-400 dark:placeholder:text-slate-400
+  rounded-lg
+  px-3 py-2
+  text-sm
+`
+
   return (
     <>
     <header
       className="
         sticky top-0 z-20
-        bg-white/90 backdrop-blur
-        border-b border-gray-200
+        bg-white/90 dark:bg-slate-900/90
+        backdrop-blur
+        border-b border-gray-200 dark:border-slate-700
         px-6 py-4
         flex justify-between items-center
       "
@@ -135,7 +158,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             p-2 rounded-lg
             text-gray-600
             hover:bg-gray-100
-            transition
+            transition text-gray-900 dark:text-gray-300 dark:hover:bg-slate-700 dark:hover:text-white
           "
           aria-label="Open menu"
         >
@@ -156,16 +179,19 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       </div>
 
       {/* Right */}
+
       <div className="relative" ref={dropdownRef}>
         {/* Trigger */}
         <button
           onClick={() => setOpen(!open)}
           className="
             flex items-center gap-2
-            bg-blue-100 text-blue-700
+            bg-blue-100 dark:bg-slate-800 
+            text-blue-700 dark:text-cyan-300
             px-4 py-2 rounded-full
             text-sm font-medium
-            hover:bg-blue-200
+            hover:bg-blue-200 dark:hover:bg-cyan-700
+            border border-blue-300 dark:border-cyan-600
             transition
           "
         >
@@ -190,8 +216,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           <div
             className="
               absolute right-0 mt-2 w-44
-              bg-white rounded-lg shadow-lg
-              border border-gray-100
+              bg-white dark:bg-slate-900 rounded-lg shadow-lg
+              border border-gray-100 dark:border-slate-700
               overflow-hidden
             "
           >
@@ -202,7 +228,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             }}
               className="
                 w-full text-left px-4 py-2 text-sm
-                hover:bg-gray-50
+                hover:bg-gray-50 text-gray-700 dark:hover:bg-slate-700 dark:text-slate-200
               "
             >
               👤 Profile
@@ -211,29 +237,57 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             <hr />
 
             <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="
+                w-full
+                flex items-center gap-2
+                px-4 py-2
+                text-sm
+                text-gray-700 dark:text-slate-200
+                hover:bg-gray-50 dark:hover:bg-slate-700
+                transition
+              "
+            >
+              {darkMode ? (
+                <>
+                  <Sun className="w-4 h-4 text-yellow-500" />
+                  <span>Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-4 h-4 text-slate-500" />
+                  <span>Dark Mode</span>
+                </>
+              )}
+            </button>
+
+            <hr />
+            
+            <button
               onClick={logout}
               className="
                 w-full text-left px-4 py-2 text-sm
-                text-red-600
-                hover:bg-red-50
+                text-gray-700 dark:text-slate-200
+                hover:bg-red-50 dark:hover:bg-red-500/10
+                transition text-red-600 dark:text-cyan-400
               "
             >
               🚪 Logout
             </button>
           </div>
         )}
-      </div>
+      </div> 
     </header>
 
     {/* Edit Profile Modal */}
     {openProfile && (
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-        <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-lg">
-          <h2 className="text-lg font-semibold mb-4">Edit Profile</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-xl w-full max-w-md p-6 shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Edit Profile</h2>
 
           {/* Name */}
           <div className="mb-3">
-            <label className="text-sm">Nama</label>
+            <label className="text-sm text-gray-900 dark:text-white">Nama</label>
             <input
               type="text"
               value={formProfile.name}
@@ -241,13 +295,20 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               onChange={(e) =>
                 setFormProfile({ ...formProfile, name: e.target.value })
               }
-              className="w-full border rounded-lg px-3 py-2 text-sm"
+              className="w-full
+                        border
+                        border-gray-300 dark:border-slate-700
+                        bg-white dark:bg-slate-800
+                        text-slate-900 dark:text-white
+                        rounded-lg
+                        px-3 py-2
+                        text-sm"
             />
           </div>
 
           {/* Email */}
           <div className="mb-3">
-            <label className="text-sm">Email</label>
+            <label className="text-sm text-gray-900 dark:text-white">Email</label>
             <input
               type="email"
               value={formProfile.email}
@@ -255,13 +316,13 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               onChange={(e) =>
                 setFormProfile({ ...formProfile, email: e.target.value })
               }
-              className="w-full border rounded-lg px-3 py-2 text-sm"
+              className={inputClass}
             />
           </div>
 
           {/* Position */}
           <div className="mb-4">
-            <label className="text-sm">Position</label>
+            <label className="text-sm text-gray-900 dark:text-white">Position</label>
             <input
               type="text"
               value={formProfile.role}
@@ -269,13 +330,13 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               onChange={(e) =>
                 setFormProfile({ ...formProfile, role: e.target.value })
               }
-              className="w-full border rounded-lg px-3 py-2 text-sm"
+              className={inputClass}
             />
           </div>
 
           {/* Password */}
           <div className="mb-3">
-            <label className="text-sm">Password</label>
+            <label className="text-sm text-gray-900 dark:text-white">Password</label>
             <input
               type="password"
               value={formProfile.password || ''}
@@ -283,7 +344,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               onChange={(e) =>
                 setFormProfile({ ...formProfile, password: e.target.value })
               }
-              className="w-full border rounded-lg px-3 py-2 text-sm"
+              className={inputClass}
             />
           </div>
 
@@ -291,7 +352,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setOpenProfile(false)}
-              className="px-4 py-2 text-sm rounded-lg border"
+              className="px-4 py-2 text-sm rounded-lg border text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-700"
             >
               Batal
             </button>

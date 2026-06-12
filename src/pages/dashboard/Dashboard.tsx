@@ -82,10 +82,10 @@ export default function Dashboard() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Dashboard
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-600 dark:text-slate-400">
           Ringkasan aktivitas dan progres pekerjaan hari ini
         </p>
       </div>
@@ -109,9 +109,9 @@ export default function Dashboard() {
           key={task.id}
           className="flex justify-between items-center"
         >
-          <span>{getStatusIcon(task.status)} {limitWords(task.activity, 3)}</span>
+          <span className="text-gray-800 dark:text-slate-200">{getStatusIcon(task.status)} {limitWords(task.activity, 3)}</span>
 
-          <span className="text-gray-400 text-xs">
+          <span className="text-gray-500 dark:text-slate-400 text-xs">
           {new Date(task.updated_at).toLocaleString("id-ID", {
             day: "2-digit",
             month: "short",
@@ -123,7 +123,7 @@ export default function Dashboard() {
       ))}
     </ul>
   ) : (
-    <p className="text-sm text-gray-400">
+    <p className="text-sm text-gray-500 dark:text-slate-400">
       Belum ada aktivitas
     </p>
   )}
@@ -177,8 +177,8 @@ function Card({
   children: React.ReactNode
 }) {
   return (
-    <div className="bg-white rounded-xl shadow p-4">
-      <h2 className="font-semibold mb-3">{title}</h2>
+    <div className="bg-white dark:bg-slate-900 rounded-xl shadow p-4 border border-gray-100 dark:border-slate-800">
+      <h2 className="font-semibold mb-3 text-gray-900 dark:text-white">{title}</h2>
       {children}
     </div>
   )
@@ -195,8 +195,12 @@ function StatusItem({
 }) {
   return (
     <div className="flex justify-between text-sm border-b py-1 last:border-none">
-      <span className="text-gray-600">{label}</span>
-      <span className={`font-semibold ${highlight ? 'text-blue-600' : ''}`}>
+      <span className="text-gray-700 dark:text-slate-300">{label}</span>
+      <span className={`font-semibold ${
+        highlight 
+          ? 'text-blue-600 dark:text-blue-400' 
+          : 'text-gray-900 dark:text-white'
+      }`}>
         {value}
       </span>
     </div>

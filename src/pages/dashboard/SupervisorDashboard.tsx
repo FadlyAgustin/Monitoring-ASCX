@@ -419,11 +419,11 @@ const downloadZip = async (taskId:number) => {
   ) || []
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-gray-900 dark:text-white">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-col gap-3">
-        <h2 className="text-xl font-bold">Dashboard</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h2>
         <div className="flex flex-col sm:flex-row gap-2 w-full">
         {loading ? (
           <>
@@ -440,7 +440,10 @@ const downloadZip = async (taskId:number) => {
                 setMonth(e.target.value)
                 setPage(1)
               }}
-              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto"
+              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             >
               <option value="all">Pilih Bulan</option>
               {Array.from({ length: 12 }).map((_, i) => {
@@ -460,7 +463,10 @@ const downloadZip = async (taskId:number) => {
                 setYear(e.target.value)
                 setPage(1)
               }}
-              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto"
+              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             >
               <option value="all">Semua Tahun</option>
               {Array.from(
@@ -485,7 +491,10 @@ const downloadZip = async (taskId:number) => {
                 setJobType(e.target.value)
                 setPage(1)
               }}
-              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto"
+              className="border rounded-md px-3 py-2 text-sm w-full sm:w-auto
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             >
               <option value="all">Semua Kategori Pekerjaan</option>
               {jobTypes.map(type => (
@@ -528,8 +537,8 @@ const downloadZip = async (taskId:number) => {
       <div className="overflow-x-auto">
         {/* Desktop Table */}
 <div className="hidden md:block overflow-x-auto">
-  <table className="w-full bg-white rounded shadow text-sm">
-    <thead className="bg-gray-100">
+  <table className="w-full bg-white dark:bg-slate-900 rounded shadow text-sm">
+    <thead className="bg-gray-100 dark:bg-slate-800">
       <tr>
         <th className="p-2 text-left">Tanggal Dibuat</th>
         <th className="p-2 text-left">Deadline</th>
@@ -547,7 +556,7 @@ const downloadZip = async (taskId:number) => {
     <TableSkeleton />
   ) : isEmpty ? (
   <tr>
-    <td colSpan={7} className="p-6 text-center text-gray-500">
+    <td colSpan={7} className="p-6 text-center text-gray-500 dark:text-gray-400">
       <p className="font-medium text-gray-700">
         Tidak ada data aktivitas
       </p>
@@ -578,9 +587,15 @@ const downloadZip = async (taskId:number) => {
   </tr>
 ) : (
         paginatedData.map((item) => (
-          <tr key={item.id} className={`border-t ${
-            !item.is_seen_by_supervisor ? "bg-green-50 border-l-4 border-green-400" : ""
-          }`}>
+          <tr key={item.id} className={`
+              border-t dark:border-slate-800
+              hover:bg-gray-50 dark:hover:bg-slate-800/50
+              ${
+                !item.is_seen_by_supervisor
+                  ? "bg-green-50 dark:bg-green-900/50 border-l-4 border-green-400"
+                  : ""
+              }
+            `}>
             {/* TANGGAL (created_at kalau ada, atau deadline saja) */}
             <td className="p-2 font-medium">
               {formatDateTime(item.date)}
@@ -606,7 +621,7 @@ const downloadZip = async (taskId:number) => {
               </Badge>
             </td>
             <td className="p-2 max-w-xs">
-              <p className="line-clamp-2 text-gray-700">
+              <p className="line-clamp-2 text-gray-700 dark:text-gray-300">
                 {item.activity}
               </p>
             </td>
@@ -653,9 +668,18 @@ const downloadZip = async (taskId:number) => {
     paginatedData.map((item, i) => (
       <div
         key={i}
-        className={`relative bg-white rounded shadow p-4 my-2 space-y-2 text-sm ${
-          !item.is_seen_by_supervisor ? 'ring-2 ring-green-400' : ''
-        }`}
+        className={`relative
+        bg-white dark:bg-slate-900
+        rounded shadow
+        p-4 my-2
+        space-y-2 text-sm
+        border dark:border-slate-800
+        ${
+          !item.is_seen_by_supervisor
+            ? 'ring-2 ring-green-400'
+            : ''
+        }
+        `}
       >
        
           {!item.is_seen_by_supervisor && (
@@ -667,7 +691,7 @@ const downloadZip = async (taskId:number) => {
           )}
         
         <div className="flex justify-between">
-          <span className="text-gray-500">Tanggal dibuat</span>
+          <span className="text-gray-500 dark:text-gray-400">Tanggal dibuat</span>
 
   <span
     className="font-medium"
@@ -677,24 +701,24 @@ const downloadZip = async (taskId:number) => {
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-500">Nama</span>
+          <span className="text-gray-500 dark:text-gray-400">Nama</span>
           <span className="font-medium">{item.name}</span>
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-500">Posisi</span>
+          <span className="text-gray-500 dark:text-gray-400">Posisi</span>
           <Badge color="dark">{item.position}</Badge>
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-500">Kategori Pekerjaan</span>
+          <span className="text-gray-500 dark:text-gray-400">Kategori Pekerjaan</span>
           <Badge color={jobTypeColor(item.jobType)}>
             {item.jobType}
           </Badge>
         </div>
 
         <div>
-          <p className="text-gray-500 text-xs">Aktivitas</p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs">Aktivitas</p>
           <p className="font-medium line-clamp-2">
             {item.activity}
           </p>
@@ -742,7 +766,7 @@ const downloadZip = async (taskId:number) => {
 
       {/* Deadline */}
       <div>
-        <p className="text-gray-500">Deadline</p>
+        <p className="text-gray-500 dark:text-gray-400">Deadline</p>
         <div className='flex items-center justify-between gap-2'>
           <p
             className={`font-medium ${
@@ -763,7 +787,7 @@ const downloadZip = async (taskId:number) => {
       {/* Status & Position */}
       <div className="flex gap-3">
         <div>
-          <p className="text-gray-500">Status</p>
+          <p className="text-gray-500 dark:text-gray-400">Status</p>
           <Badge
             color={
               viewData.status === 'Done'
@@ -778,12 +802,12 @@ const downloadZip = async (taskId:number) => {
         </div>
 
         <div>
-          <p className="text-gray-500">Position</p>
+          <p className="text-gray-500 dark:text-gray-400">Position</p>
           <Badge color="blue">{viewData.position}</Badge>
         </div>
 
         <div>
-        <p className="text-gray-500">Kategori Pekerjaan</p>
+        <p className="text-gray-500 dark:text-gray-400">Kategori Pekerjaan</p>
           <Badge color={jobTypeColor(viewData.jobType)}>
             {viewData.jobType}
           </Badge>
@@ -792,8 +816,8 @@ const downloadZip = async (taskId:number) => {
 
       {/* Activity */}
       <div>
-        <p className="text-gray-500 mb-1">Aktivitas</p>
-        <p className="bg-gray-50 p-3 rounded-lg whitespace-pre-line break-words">
+        <p className="text-gray-500 dark:text-gray-400 mb-1">Aktivitas</p>
+        <p className="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg whitespace-pre-line break-words">
           {viewData.activity}
         </p>
       </div>
@@ -801,7 +825,7 @@ const downloadZip = async (taskId:number) => {
       {/* Files */}
 <div>
 
-  <p className="text-gray-500 mb-2">Lampiran</p>
+  <p className="text-gray-500 dark:text-gray-400 mb-2">Lampiran</p>
 
   {/* FILE */}
 {viewData.files && viewData.files.length > 0 && (
@@ -830,7 +854,7 @@ const downloadZip = async (taskId:number) => {
     </Button>
 
     {progress > 0 && (
-      <div className="w-full bg-gray-200 h-2 mt-2 rounded">
+      <div className="w-full bg-gray-200 dark:bg-slate-700 h-2 mt-2 rounded">
         <div
           className="bg-green-500 h-2 rounded"
           style={{width:`${progress}%`}}
@@ -848,7 +872,13 @@ const downloadZip = async (taskId:number) => {
 {otherFiles.map(file => (
           <div
             key={file.id}
-            className="border rounded-lg p-3 flex justify-between items-center text-sm"
+            className="border dark:border-slate-700
+                      rounded-lg
+                      p-3
+                      flex justify-between
+                      items-center
+                      text-sm
+                      bg-white dark:bg-slate-800 items-center text-sm"
           >
             <span className="truncate">
               📎 {file.file_name}
@@ -871,7 +901,7 @@ const downloadZip = async (taskId:number) => {
       href={viewData.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-blue-600 underline break-all"
+      className="text-blue-600 dark:text-blue-400 underline break-all"
     >
       {viewData.link}
     </a>
@@ -880,7 +910,7 @@ const downloadZip = async (taskId:number) => {
 
 {/* EMPTY */}
 {(!viewData.files || viewData.files.length === 0) && !viewData.link && (
-  <p className="text-xs text-gray-400">
+  <p className="text-xs text-gray-400 dark:text-gray-500">
     Tidak ada file atau link
   </p>
 )}
@@ -908,7 +938,7 @@ const downloadZip = async (taskId:number) => {
 
     {/* Pilih Staff */}
     <div>
-      <label className="text-sm font-medium">Pilih Supervisor & Staff</label>
+      <label className="text-sm font-medium text-gray-900 dark:text-white">Pilih Supervisor & Staff</label>
       <Select
         options={staffOptions}
         isSearchable
@@ -928,7 +958,7 @@ const downloadZip = async (taskId:number) => {
 
   <div>
     {/* Deadline */}
-    <label className="text-sm font-medium">Deadline</label>
+    <label className="text-sm font-medium text-gray-900 dark:text-white">Deadline</label>
     <input
       type="datetime-local"
       value={form.deadline}
@@ -943,15 +973,20 @@ const downloadZip = async (taskId:number) => {
 
   <div>
     {/* Job Type */}
-    <label className="text-sm font-medium">Kategori Pekerjaan</label>
+    <label className="text-sm font-medium text-gray-900 dark:text-white">Kategori Pekerjaan</label>
     <select
       value={form.job_type_id}
       onChange={e =>
         setForm({ ...form, job_type_id: e.target.value })
       }
-      className="w-full border rounded-lg
-      px-3 py-2 text-sm
-      focus:ring-2 focus:ring-blue-500 outline-none"
+      className="w-full
+                border rounded-lg
+                px-3 py-2 text-sm
+                bg-white dark:bg-slate-800
+                text-gray-900 dark:text-white
+                border-gray-300 dark:border-slate-700
+                focus:ring-2 focus:ring-blue-500
+                outline-none"
     >
       <option value="">-- Pilih Kategori --</option>
 
@@ -965,7 +1000,7 @@ const downloadZip = async (taskId:number) => {
 
   <div>
     {/* Activity */}
-    <label className="text-sm font-medium">Aktivitas</label>
+    <label className="text-sm font-medium text-gray-900 dark:text-white">Aktivitas</label>
     <textarea
       rows={4}
       placeholder="Deskripsi tugas..."
@@ -973,7 +1008,14 @@ const downloadZip = async (taskId:number) => {
       onChange={e =>
         setForm({ ...form, activity: e.target.value })
       }
-      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+      className="w-full
+                  border rounded-lg
+                  px-3 py-2 text-sm
+                  bg-white dark:bg-slate-800
+                  text-gray-900 dark:text-white
+                  border-gray-300 dark:border-slate-700
+                  focus:ring-2 focus:ring-blue-500
+                  outline-none"
     />
   </div>
 
@@ -981,7 +1023,10 @@ const downloadZip = async (taskId:number) => {
     <div className="flex justify-end gap-2">
       <button
         onClick={() => setOpenAssign(false)}
-        className="px-4 py-2 bg-gray-200 rounded"
+        className="px-4 py-2
+                    bg-gray-200 dark:bg-slate-700
+                    text-gray-900 dark:text-white
+                    rounded"
       >
         Batal
       </button>

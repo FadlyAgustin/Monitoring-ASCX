@@ -60,14 +60,17 @@ export default function TaskItem(
 }: TaskItemProps) {
   
   return (
-    <div className="bg-white rounded-xl shadow p-4 space-y-2">
+    <div className="bg-white dark:bg-slate-900
+    border border-gray-100 dark:border-slate-800
+    rounded-xl shadow
+    p-4 space-y-2">
       <div className="flex justify-between items-start">
         <div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-slate-400">
             Deadline: {new Date(task.deadline).toLocaleString()}
           </p>
-          <h3 className="font-medium line-clamp-1">{task.activity}</h3>
-          <p className="text-xs text-gray-500">
+          <h3 className="font-medium line-clamp-1 text-gray-900 dark:text-white">{task.activity}</h3>
+          <p className="text-xs text-gray-500 dark:text-slate-400">
             Position: {task.position}
           </p>
         </div>
@@ -129,7 +132,9 @@ export default function TaskItem(
             <Button size="sm" variant="danger" onClick={onDelete}>
               Delete
             </Button>
-            <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 whitespace-nowrap">
+            <span className="text-xs px-2 py-1 rounded-full whitespace-nowrap
+    bg-red-100 text-red-600
+    dark:bg-red-900/30 dark:text-red-400">
               Rejected
             </span>
           </div>

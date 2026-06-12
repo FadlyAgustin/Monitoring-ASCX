@@ -84,13 +84,14 @@ export default function WeeklySummaryCard({ data, loading}: Props) {
 
  if (!data) {
   return (
-    <div className="bg-white rounded-xl shadow p-6 space-y-6">
+    <div className="bg-white dark:bg-slate-900 rounded-xl shadow p-6 space-y-6
+                text-gray-900 dark:text-white">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
             Weekly Activity
           </h3>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-slate-400">
             Ringkasan performa mingguan
           </p>
         </div>
@@ -118,10 +119,10 @@ export default function WeeklySummaryCard({ data, loading}: Props) {
 
   {/* ================= HEADER ================= */}
   <div>
-    <h3 className="font-semibold text-gray-800 text-lg">
+    <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
       Weekly Activity
     </h3>
-    <p className="text-xs text-gray-500">
+    <p className="text-xs text-gray-500 dark:text-slate-400">
       Ringkasan performa mingguan
     </p>
   </div>
@@ -130,7 +131,7 @@ export default function WeeklySummaryCard({ data, loading}: Props) {
   <div className="grid grid-cols-2 gap-4 text-sm">
 
   {/* KIRI */}
-  <div className="bg-gray-100 p-3 rounded-lg space-y-2">
+  <div className="bg-gray-100 dark:bg-slate-800 p-3 rounded-lg space-y-2">
     <SummaryRow label="KPI Target" value={target} />
 
     <SummaryRow
@@ -149,7 +150,7 @@ export default function WeeklySummaryCard({ data, loading}: Props) {
   </div>
 
   {/* KANAN */}
-  <div className="bg-gray-100 p-3 rounded-lg space-y-2">
+  <div className="bg-gray-100 dark:bg-slate-800 p-3 rounded-lg space-y-2">
     <SummaryRow
       label="Pending"
       value={pending}
@@ -195,7 +196,7 @@ export default function WeeklySummaryCard({ data, loading}: Props) {
         {data.kpi_details.map((item: any, i: number) => (
           <div
             key={i}
-            className="p-3 rounded-lg border bg-gray-50 hover:bg-gray-100 transition"
+            className="p-3 rounded-lg border bg-gray-50 dark:bg-slate-800 dark:border-slate-700 hover:bg-gray-100 transition"
           >
             {/* TOP */}
             <div className="flex justify-between items-center mb-1">

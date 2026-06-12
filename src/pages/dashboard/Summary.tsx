@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { BarChart3 } from 'lucide-react'
 import axios from 'axios'
 import KpiCard from '../../components/cards/KpiCard'
 import WeeklySummaryCard from '../../components/cards/WeeklySummaryCard'
@@ -9,6 +10,11 @@ export default function Summary() {
 
   const [month, setMonth] = useState(String(now.getMonth() + 1))
   const [year, setYear] = useState(String(now.getFullYear()))
+
+  const currentYear = new Date().getFullYear()
+  const years = Array.from({ length: 5 }, (_, i) =>
+    currentYear - 2 + i
+  )
 
   type Staff = {
     id: number
@@ -106,12 +112,27 @@ export default function Summary() {
   }, [isLeader])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-gray-900 dark:text-white">
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <h2 className="text-xl font-bold">
-          Weekly & Monthly Summary
-        </h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+              <BarChart3
+                size={18}
+                className="text-blue-600 dark:text-blue-300"
+              />
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              Weekly & Monthly Summary
+            </h2>
+          </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            Pantau capaian pekerjaan, jumlah tugas yang selesai, tugas yang masih
+            berjalan, serta performa tim melalui laporan mingguan dan bulanan.
+          </p>
+        </div>
 
         <div className="flex gap-2">
         {isLeader && (
@@ -121,7 +142,10 @@ export default function Summary() {
               const value = e.target.value
               setStaffId(value ? Number(value) : '')
             }}
-            className="border px-3 py-2 rounded text-sm"
+            className="border px-3 py-2 rounded text-sm
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
           >
             <option value="">Pilih Staff</option>
             {staffList.map(s => (
@@ -135,7 +159,10 @@ export default function Summary() {
           <select
             value={month}
             onChange={e => setMonth(e.target.value)}
-            className="border rounded-md px-3 py-1.5 text-sm"
+            className="border rounded-md px-3 py-1.5 text-sm 
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
           >
             <option value="1">Januari</option>
             <option value="2">Februari</option>
@@ -155,11 +182,16 @@ export default function Summary() {
           <select
             value={year}
             onChange={e => setYear(e.target.value)}
-            className="border rounded-md px-3 py-1.5 text-sm"
+            className="border rounded-md px-3 py-1.5 text-sm
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
           >
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
+            {years.map(y => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -173,9 +205,11 @@ export default function Summary() {
             onSaveKpi={handleSaveKpi}
           />
         )}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-gray-900 dark:text-white">
         {isLeader && !staffId ? (
-          <div className="col-span-2 bg-white rounded-xl shadow p-6 text-center text-sm text-gray-500">
+          <div className="col-span-2 bg-white dark:bg-slate-900
+            rounded-xl shadow p-6 text-center text-sm
+            text-gray-500 dark:text-slate-300 border">
             Silakan pilih staff terlebih dahulu untuk melihat summary
           </div>
         ) : (

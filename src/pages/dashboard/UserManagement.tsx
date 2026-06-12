@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Users } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { createPortal } from "react-dom";
 import { useDebounce } from '../../components/ui/useDebounce'
@@ -50,15 +51,13 @@ export default function UserManagement() {
     }
   }
 
-  
-  useEffect(() => {
-    setLoading(true)
-    setPage(1)
-  }, [debouncedSearch, role])
-  
-  useEffect(() => {
-    fetchUsers()
-  }, [debouncedSearch, role, page])
+useEffect(() => {
+  setPage(1)
+}, [debouncedSearch, role])
+
+useEffect(() => {
+  fetchUsers()
+}, [page, debouncedSearch, role])
 
   // ===============================
   // HANDLE CREATE & UPDATE
@@ -134,11 +133,11 @@ export default function UserManagement() {
   
     return createPortal(
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-80">
-            <h2 className="font-semibold mb-4">Yakin hapus user?</h2>
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 w-80">
+            <h2 className="font-semibold mb-4 text-gray-900 dark:text-white">Yakin hapus user?</h2>
       
             <div className="flex justify-end gap-2">
-              <button onClick={onClose}>Batal</button>
+              <button className="text-gray-900 dark:text-white" onClick={onClose}>Batal</button>
               <button
                 onClick={onConfirm}
                 className="bg-red-600 text-white px-4 py-2 rounded"
@@ -155,10 +154,10 @@ export default function UserManagement() {
   const RoleBadge = ({ role }: { role: string }) => {
     const color =
       role === 'STAFF_IT'
-        ? 'bg-blue-100 text-blue-700'
-        : role === 'STAFF_ASCX'
-        ? 'bg-green-100 text-green-700'
-        : 'bg-black text-white hover:bg-gray-900 focus:ring-gray-700'
+    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+    : role === 'STAFF_ASCX'
+    ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+    : 'bg-black text-white dark:bg-slate-700 dark:text-white'
   
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium ${color}`}>
@@ -169,14 +168,28 @@ export default function UserManagement() {
 
   return (
     <>
-    <div className="space-y-6">
+    <div className="space-y-6 text-gray-900 dark:text-white">
 
       {/* HEADER */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">User Management</h1>
-          <p className="text-sm text-gray-500">
-            Kelola user sistem
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+              <Users
+                size={20}
+                className="text-blue-600 dark:text-blue-300"
+              />
+            </div>
+
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              User Management
+            </h1>
+          </div>
+
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            Pusat administrasi pengguna untuk mengelola akun, mengatur hak akses,
+            serta memastikan setiap pengguna memiliki peran dan izin yang sesuai
+            dengan tanggung jawabnya dalam sistem.
           </p>
         </div>
       </div>
@@ -189,8 +202,12 @@ export default function UserManagement() {
         ) : (
         <input
           placeholder="Cari user..."
-          className="border px-3 py-2 rounded-lg text-sm w-full sm:w-64 min-w-0"
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="border px-3 py-2 rounded-lg text-sm w-full sm:w-64 min-w-0
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
         />
         )}
         
@@ -199,7 +216,10 @@ export default function UserManagement() {
           <div className="h-10 w-full sm:w-auto md:w-36 bg-gray-200 animate-pulse rounded-lg" />
         ) : (
         <select
-          className="border px-3 py-2 rounded-lg text-sm w-full sm:w-auto"
+          className="border px-3 py-2 rounded-lg text-sm w-full sm:w-64 min-w-0
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
@@ -225,7 +245,8 @@ export default function UserManagement() {
               })
               setOpenModal(true)
           }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full sm:w-auto whitespace-nowrap"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full sm:w-auto
+                    hover:bg-blue-700 transition whitespace-nowrap"
           >
           + Tambah User
           </button>
@@ -233,7 +254,7 @@ export default function UserManagement() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-xl shadow overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow overflow-hidden border dark:border-slate-800">
       <div className="overflow-x-auto">
       {/* TABLE + CARD */}
         {loading ? (
@@ -304,7 +325,7 @@ export default function UserManagement() {
             {/* ================= DESKTOP TABLE ================= */}
             <div className="hidden md:block overflow-x-auto rounded-lg border">
               <table className="min-w-full text-sm text-left">
-                <thead className="bg-gray-100 text-gray-600">
+                <thead className="bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300">
                   <tr>
                     <th className="px-4 py-3 font-medium">Nama</th>
                     <th className="px-4 py-3 font-medium">Email</th>
@@ -317,11 +338,11 @@ export default function UserManagement() {
                   {users.filter((user) => user.id !== 1).map((user) => (
                     <tr
                       key={user.id}
-                      className="border-t hover:bg-gray-50 transition"
+                      className="border-t dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition"
                     >
-                      <td className="px-4 py-3 font-medium">{user.name}</td>
+                      <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{user.name}</td>
 
-                      <td className="px-4 py-3 text-gray-600">
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
                         {user.email}
                       </td>
 
@@ -364,7 +385,7 @@ export default function UserManagement() {
               {users.filter((user) => user.id !== 1).map((user) => (
                 <div
                   key={user.id}
-                  className="border rounded-xl p-4 shadow-sm bg-white space-y-2 w-full"
+                  className="border dark:border-slate-800 rounded-xl p-4 shadow-sm bg-white dark:bg-slate-900 space-y-2 w-full"
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold text-sm">
@@ -374,7 +395,7 @@ export default function UserManagement() {
                     <RoleBadge role={user.role} />
                   </div>
 
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">
                     {user.email}
                   </div>
 
@@ -420,7 +441,7 @@ export default function UserManagement() {
           key={i}
           onClick={() => setPage(i + 1)}
           className={`px-3 py-1 rounded ${
-            page === i + 1 ? 'bg-blue-600 text-white' : 'border'
+            page === i + 1 ? 'bg-blue-600 text-white' : 'border border-gray-300 dark:border-slate-700 text-gray-700 dark:text-white'
           }`}
         >
           {i + 1}
@@ -441,9 +462,9 @@ export default function UserManagement() {
 
     {openModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white rounded-xl p-6 w-96 space-y-4">
+            <div className="bg-white dark:bg-slate-900 rounded-xl p-6 w-96 space-y-4">
 
-            <h2 className="font-semibold text-lg">
+            <h2 className="font-semibold text-lg text-gray-900 dark:text-white">
                 {editUser ? 'Edit User' : 'Tambah User'}
             </h2>
 
@@ -453,7 +474,10 @@ export default function UserManagement() {
                 onChange={(e) =>
                 setForm({ ...form, name: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded-lg text-sm"
+                className="w-full border px-3 py-2 rounded-lg text-sm
+                            bg-white dark:bg-slate-800
+                            text-gray-900 dark:text-white
+                            border-gray-300 dark:border-slate-700"
             />
 
             <input
@@ -462,7 +486,10 @@ export default function UserManagement() {
                 onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded-lg text-sm"
+                className="w-full border px-3 py-2 rounded-lg text-sm
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             />
 
             <select
@@ -470,7 +497,10 @@ export default function UserManagement() {
                 onChange={(e) =>
                 setForm({ ...form, role: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded-lg text-sm"
+                className="w-full border px-3 py-2 rounded-lg text-sm
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             >
                 <option value="STAFF_ASCX">STAFF ASCX</option>
                 <option value="STAFF_IT">STAFF IT</option>
@@ -487,7 +517,10 @@ export default function UserManagement() {
                 onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded-lg text-sm"
+                className="w-full border px-3 py-2 rounded-lg text-sm
+                          bg-white dark:bg-slate-800
+                          text-gray-900 dark:text-white
+                          border-gray-300 dark:border-slate-700"
             />
 
             <div className="flex justify-end gap-2 pt-2">

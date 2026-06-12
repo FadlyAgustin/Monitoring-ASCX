@@ -91,14 +91,20 @@ function KanbanColumn({ title, color, count, children }: any) {
   return (
     <div
       ref={setNodeRef}
-      className="bg-gray-50 rounded-xl border min-h-[500px] flex flex-col"
+      className="bg-white dark:bg-slate-900
+                  border border-gray-200 dark:border-slate-800
+                  rounded-xl
+                  min-h-[500px]
+                  flex flex-col"
     >
-      <div className="flex justify-between items-center px-4 py-3 border-b">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 dark:border-slate-700">
         <h3 className={`font-semibold ${colorMap[color]}`}>
           {title}
         </h3>
 
-        <span className="bg-gray-200 text-sm px-2 py-1 rounded-full">
+        <span className="bg-gray-100 dark:bg-slate-800
+                          text-gray-700 dark:text-slate-300
+                          text-sm px-2 py-1 rounded-full">
           {count}
         </span>
       </div>
@@ -113,8 +119,12 @@ function KanbanColumn({ title, color, count, children }: any) {
 function EmptyState() {
   return (
     <div className="
-      text-center text-gray-400 text-sm
-      border-2 border-dashed rounded-lg
+      text-center
+      text-gray-500 dark:text-slate-400
+      text-sm
+      border-2 border-dashed
+      border-gray-300 dark:border-slate-700
+      rounded-lg
       py-10
     ">
         No Tasks
@@ -180,7 +190,7 @@ function DraggableTask({ task, children }: any) {
         className="
           absolute bottom-2 right-2
           cursor-grab active:cursor-grabbing
-          text-gray-400
+          text-gray-500 dark:text-slate-400
         "
       >
         ☰
@@ -619,7 +629,7 @@ const POSITION_OPTIONS =
     : ['STAFF ASCX']
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-gray-900 dark:text-slate-100">
       {/* Header */}
       <div className="
   flex flex-col gap-3
@@ -627,7 +637,7 @@ const POSITION_OPTIONS =
 ">
 
 <div className="flex flex-col gap-3">
-  <h2 className="text-xl font-bold">
+  <h2 className="text-xl font-bold text-gray-900 dark:text-white">
     Daily Task / Activity Log
   </h2>
 
@@ -638,7 +648,10 @@ const POSITION_OPTIONS =
     <select
       value={filterMonth}
       onChange={e => setFilterMonth(e.target.value)}
-      className="border rounded-lg px-3 py-2 text-sm"
+      className="border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white"
     >
       <option value="">Semua Bulan</option>
       {Array.from({ length: 12 }).map((_, i) => {
@@ -660,7 +673,10 @@ const POSITION_OPTIONS =
     <select
       value={filterYear}
       onChange={e => setFilterYear(e.target.value)}
-      className="border rounded-lg px-3 py-2 text-sm"
+      className="border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white"
     >
       <option value="">Semua Tahun</option>
       {Array.from(new Set(tasks.map(t =>
@@ -683,7 +699,10 @@ const POSITION_OPTIONS =
           setFilterJobType(e.target.value)
           setCurrentPage(1)
         }}
-        className="border rounded-lg px-3 py-2 text-sm"
+        className="border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white"
       >
         <option value="">Semua Kategori</option>
         {jobTypes.map(jt => (
@@ -718,14 +737,20 @@ const POSITION_OPTIONS =
     {/* MAIN BUTTON */}
     <button
       onClick={() => setOpenDropdown(!openDropdown)}
-      className="bg-black text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2 w-full"
+      className="bg-slate-900 dark:bg-cyan-600
+  hover:bg-slate-800 dark:hover:bg-cyan-700
+  text-white px-3 py-2 rounded-lg text-sm
+  flex items-center gap-2 w-full"
     >
       ⚡ Actions
     </button>
 
     {/* DROPDOWN */}
     {openDropdown && (
-      <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
+      <div className=" absolute right-0 mt-2 w-48
+    bg-white dark:bg-slate-900
+    border border-gray-200 dark:border-slate-700
+    rounded-lg shadow-lg z-50">
 
         {/* ➕ Add Task */}
         <button
@@ -733,7 +758,9 @@ const POSITION_OPTIONS =
             openAdd()
             setOpenDropdown(false)
           }}
-          className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+          className=" w-full text-left px-4 py-2 text-sm
+                      text-gray-700 dark:text-slate-200
+                      hover:bg-gray-100 dark:hover:bg-slate-800"
         >
           ➕ Add Task
         </button>
@@ -744,7 +771,9 @@ const POSITION_OPTIONS =
             setOpenRequest(true)
             setOpenDropdown(false)
           }}
-          className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+          className=" w-full text-left px-4 py-2 text-sm
+                      text-gray-700 dark:text-slate-200
+                      hover:bg-gray-100 dark:hover:bg-slate-800"
         >
           📝 Request Task
         </button>
@@ -845,7 +874,11 @@ const POSITION_OPTIONS =
     <button
       onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
       disabled={currentPage === 1}
-      className="px-3 py-1 text-sm rounded-lg border disabled:opacity-50"
+      className="px-3 py-1 text-sm rounded-lg
+                  border border-gray-300 dark:border-slate-700
+                  bg-white dark:bg-slate-900
+                  text-gray-700 dark:text-slate-300
+                  disabled:opacity-50"
     >
       Prev
     </button>
@@ -859,8 +892,9 @@ const POSITION_OPTIONS =
           className={`
             px-3 py-1 text-sm rounded-lg border
             ${currentPage === page
-              ? 'bg-blue-600 text-white'
-              : 'bg-white'}
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-300'
+            }
           `}
         >
           {page}
@@ -871,7 +905,11 @@ const POSITION_OPTIONS =
     <button
       onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
       disabled={currentPage === totalPages}
-      className="px-3 py-1 text-sm rounded-lg border disabled:opacity-50"
+      className="px-3 py-1 text-sm rounded-lg
+                  border border-gray-300 dark:border-slate-700
+                  bg-white dark:bg-slate-900
+                  text-gray-700 dark:text-slate-300
+                  disabled:opacity-50"
     >
       Next
     </button>
@@ -889,7 +927,7 @@ const POSITION_OPTIONS =
     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
     {/* Deadline */}
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
         Deadline
       </label>
       <input
@@ -899,16 +937,18 @@ const POSITION_OPTIONS =
           setForm({ ...form, deadline: e.target.value })
         }
         className="
-          w-full border rounded-lg
-          px-3 py-2 text-sm
-          focus:ring-2 focus:ring-blue-500 outline-none
+          w-full border border-gray-300 dark:border-slate-700 rounded-lg
+      px-3 py-2 text-sm
+      bg-white dark:bg-slate-800
+      text-gray-900 dark:text-white
+      focus:ring-2 focus:ring-blue-500 outline-none
         "
       />
     </div>
 
 {/* Status */}
 <div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">
+  <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
     Status
   </label>
   <select
@@ -920,8 +960,10 @@ const POSITION_OPTIONS =
       })
     }
     className="
-      w-full border rounded-lg
+      w-full border border-gray-300 dark:border-slate-700 rounded-lg
       px-3 py-2 text-sm
+      bg-white dark:bg-slate-800
+      text-gray-900 dark:text-white
       focus:ring-2 focus:ring-blue-500 outline-none
     "
   >
@@ -933,7 +975,7 @@ const POSITION_OPTIONS =
 
 {/* Position */}
 <div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">
+  <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
     Jabatan
   </label>
   {POSITION_OPTIONS.length > 1 ? (
@@ -948,7 +990,10 @@ const POSITION_OPTIONS =
           | 'SUPERVISOR ASCX',
       })
     }
-    className="w-full border rounded-lg px-3 py-2 text-sm"
+    className="w-full border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white"
   >
     {POSITION_OPTIONS.map(pos => (
       <option key={pos} value={pos}>
@@ -960,13 +1005,16 @@ const POSITION_OPTIONS =
   <input
     value={POSITION_OPTIONS[0]}
     readOnly
-    className="w-full border rounded-lg px-3 py-2 text-sm bg-gray-100"
+    className="w-full border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white bg-gray-100"
   />
 )}
 </div>
 
 <div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">
+  <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
     Kategori Pekerjaan
   </label>
   <select
@@ -978,7 +1026,10 @@ const POSITION_OPTIONS =
       job_type_id: Number(e.target.value),
     })
   }
-  className="w-full border rounded-lg px-3 py-2 text-sm"
+  className="w-full border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white"
 >
   <option value={0}>Pilih Job Type</option>
   {jobTypes.map(jt => (
@@ -1032,7 +1083,9 @@ const POSITION_OPTIONS =
           {otherFiles.map(file => (
             <div
               key={file.id}
-              className="border rounded-lg p-3 flex justify-between items-center text-sm"
+              className="border border-gray-200 dark:border-slate-700
+  bg-white dark:bg-slate-800
+  rounded-lg p-3 flex justify-between items-center text-sm"
             >
               <span className="truncate">📎 {file.file_name}</span>
               <a
@@ -1047,13 +1100,15 @@ const POSITION_OPTIONS =
 
           {/* LINK */}
           {form.link && (
-            <div className="border rounded-lg p-3 text-sm">
+            <div className="border border-gray-200 dark:border-slate-700
+  bg-white dark:bg-slate-800
+  rounded-lg p-3 text-sm">
               <p className="text-gray-500 mb-1">Link</p>
               <a
                 href={form.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 underline break-all"
+                className="text-blue-600 dark:text-blue-400"
               >
                 {form.link}
               </a>
@@ -1079,8 +1134,10 @@ const POSITION_OPTIONS =
       setUploadMode(e.target.value as 'replace' | 'append')
     }
     className="
-      w-full border rounded-lg
+      w-full border border-gray-300 dark:border-slate-700 rounded-lg
       px-3 py-2 text-sm
+      bg-white dark:bg-slate-800
+      text-gray-900 dark:text-white
       focus:ring-2 focus:ring-blue-500 outline-none
     "
   >
@@ -1178,7 +1235,10 @@ const POSITION_OPTIONS =
       value={attachmentLink}
       onChange={e => setAttachmentLink(e.target.value)}
       className="
-        w-full border rounded-lg px-3 py-2 text-sm
+        w-full border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white
         focus:ring-2 focus:ring-blue-500 outline-none
       "
     />
@@ -1191,7 +1251,7 @@ const POSITION_OPTIONS =
 
 {/* Activity */}
 <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
         Aktivitas
       </label>
       <textarea
@@ -1201,7 +1261,10 @@ const POSITION_OPTIONS =
         onChange={e =>
           setForm({ ...form, activity: e.target.value })
         }
-        className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+        className="w-full border border-gray-300 dark:border-slate-700
+  rounded-lg px-3 py-2 text-sm
+  bg-white dark:bg-slate-800
+  text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
       />
     </div>
 
@@ -1209,7 +1272,9 @@ const POSITION_OPTIONS =
     <div className="flex justify-end gap-2 pt-4">
       <button
         onClick={() => setOpen(false)}
-        className="px-4 py-2 text-sm rounded-lg bg-gray-200"
+        className="px-4 py-2 rounded-lg
+            bg-gray-200 text-gray-700
+            dark:bg-slate-700 dark:text-slate-200"
       >
         Batal
       </button>
@@ -1243,7 +1308,7 @@ const POSITION_OPTIONS =
 
       {/* Deadline */}
       <div>
-        <p className="text-gray-500">Deadline</p>
+        <p className="text-gray-500 dark:text-slate-400">Deadline</p>
         <div className="flex items-center justify-between gap-2">
           <p className={`font-medium ${
             isTaskOverdue(viewTask.deadline, viewTask.completed_at)
@@ -1262,7 +1327,7 @@ const POSITION_OPTIONS =
       {/* Status & Position */}
       <div className="flex gap-3">
         <div>
-          <p className="text-gray-500">Status</p>
+          <p className="text-gray-500 dark:text-slate-400">Status</p>
           <Badge
             color={
               viewTask.status === 'Done'
@@ -1277,12 +1342,12 @@ const POSITION_OPTIONS =
         </div>
 
         <div>
-          <p className="text-gray-500">Jabatan</p>
+          <p className="text-gray-500 dark:text-slate-400">Jabatan</p>
           <Badge color="blue">{viewTask.position}</Badge>
         </div>
 
         <div>
-          <p className="text-gray-500">Kategori Pekerjaan</p>
+          <p className="text-gray-500 dark:text-slate-400">Kategori Pekerjaan</p>
           <Badge color={jobTypeColor(viewTask.job_type?.name ?? '')}>
             {viewTask.job_type?.name}
           </Badge>
@@ -1291,8 +1356,10 @@ const POSITION_OPTIONS =
 
       {/* Activity */}
       <div>
-        <p className="text-gray-500 mb-1">Aktivitas</p>
-        <p className="bg-gray-50 p-3 rounded-lg whitespace-pre-line break-words">
+        <p className="text-gray-500 dark:text-slate-400 mb-1">Aktivitas</p>
+        <p className="bg-gray-50 dark:bg-slate-800
+    text-gray-900 dark:text-slate-100
+    p-3 rounded-lg whitespace-pre-line break-words">
           {viewTask.activity}
         </p>
       </div>
@@ -1300,7 +1367,7 @@ const POSITION_OPTIONS =
       {/* Files */}
 {/* Files & Link */}
 <div>
-  <p className="text-gray-500 mb-2">Lampiran</p>
+  <p className="text-gray-500 dark:text-slate-400 mb-2">Lampiran</p>
 
   {(() => {
     const imageFiles = viewTask.files.filter(f =>
@@ -1342,7 +1409,9 @@ const POSITION_OPTIONS =
         {otherFiles.map(file => (
           <div
             key={file.id}
-            className="border rounded-lg p-3 flex justify-between items-center text-sm"
+            className="border border-gray-200 dark:border-slate-700
+  bg-white dark:bg-slate-800
+  rounded-lg p-3 flex justify-between items-center text-sm"
           >
             <span className="truncate">
               📎 {file.file_name}
@@ -1359,13 +1428,15 @@ const POSITION_OPTIONS =
 
         {/* LINK */}
         {viewTask.link && (
-          <div className="border rounded-lg p-3 text-sm">
+          <div className="border border-gray-200 dark:border-slate-700
+  bg-white dark:bg-slate-800
+  rounded-lg p-3 text-sm">
             <p className="text-gray-500 mb-1">🔗 Link</p>
             <a
               href={viewTask.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline break-all"
+              className="  underline break-all"
             >
               {viewTask.link}
             </a>
@@ -1393,21 +1464,44 @@ const POSITION_OPTIONS =
   onClose={() => setOpenDeleteModal(false)}
 >
   <div className="space-y-4">
-    
-  <textarea
-  value={deleteReason}
-  onChange={(e) => setDeleteReason(e.target.value)}
-  className="w-full border rounded p-2"
-/>
 
-{deleteReason.trim().length > 0 && deleteReason.trim().length < 5 && (
-  <p className="text-xs text-red-500">
-    Minimal 5 karakter (tanpa spasi kosong)
-  </p>
-)}
+    <textarea
+      value={deleteReason}
+      onChange={(e) => setDeleteReason(e.target.value)}
+      placeholder="Masukkan alasan penghapusan..."
+      className="
+        w-full border rounded-lg p-2
+
+        bg-white dark:bg-slate-800
+        text-gray-900 dark:text-white
+        border-gray-300 dark:border-slate-700
+
+        placeholder:text-gray-400
+        dark:placeholder:text-slate-400
+      "
+    />
+
+    {deleteReason.trim().length > 0 &&
+      deleteReason.trim().length < 5 && (
+        <p className="text-xs text-red-500">
+          Minimal 5 karakter (tanpa spasi kosong)
+        </p>
+      )}
 
     <div className="flex justify-end gap-2">
-      <button onClick={() => setOpenDeleteModal(false)}>
+      <button
+        onClick={() => setOpenDeleteModal(false)}
+        className="
+          px-4 py-2 rounded-lg
+
+          bg-gray-200 text-gray-700
+          hover:bg-gray-300
+
+          dark:bg-slate-700
+          dark:text-slate-200
+          dark:hover:bg-slate-600
+        "
+      >
         Batal
       </button>
 
@@ -1415,8 +1509,12 @@ const POSITION_OPTIONS =
         onClick={submitDelete}
         disabled={deleteReason.trim().length < 5}
         className="
-          px-4 py-2 rounded text-white
-          bg-red-600 disabled:bg-gray-400
+          px-4 py-2 rounded-lg text-white
+
+          bg-red-600 hover:bg-red-700
+
+          disabled:bg-gray-400
+          dark:disabled:bg-slate-600
         "
       >
         Kirim

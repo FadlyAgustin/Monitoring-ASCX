@@ -12,12 +12,14 @@ export default function KpiCard({ isLeader, onSaveKpi }: Props) {
     ])
   
     return (
-      <div className="bg-white rounded-xl shadow p-5 space-y-4">
+      <div className=" bg-white dark:bg-slate-900
+      rounded-xl shadow p-5 space-y-4
+      text-gray-900 dark:text-white">
   
         {/* ================= SET KPI ================= */}
         {isLeader && (
           <div className="space-y-2">
-            <p className="text-sm font-medium">Set KPI</p>
+            <p className="text-sm font-medium text-gray-800 dark:text-white">Set KPI</p>
   
             {kpiDetails.map((item, i) => (
               <div key={i} className="flex gap-2">
@@ -30,7 +32,11 @@ export default function KpiCard({ isLeader, onSaveKpi }: Props) {
                     newData[i].jobdesk = e.target.value
                     setKpiDetails(newData)
                   }}
-                  className="border px-2 py-1 rounded w-full"
+                  className="border rounded w-full px-2 py-1 text-sm
+                  bg-white dark:bg-slate-800
+                  text-gray-900 dark:text-white
+                  border-gray-300 dark:border-slate-700
+                  focus:ring-2 focus:ring-cyan-500 outline-none"
                 />
   
                 <input
@@ -42,7 +48,11 @@ export default function KpiCard({ isLeader, onSaveKpi }: Props) {
                     newData[i].target = Number(e.target.value)
                     setKpiDetails(newData)
                   }}
-                  className="border px-2 py-1 rounded w-24"
+                  className="border rounded w-24 px-2 py-1 text-sm
+                  bg-white dark:bg-slate-800
+                  text-gray-900 dark:text-white
+                  border-gray-300 dark:border-slate-700
+                  focus:ring-2 focus:ring-cyan-500 outline-none"
                   min={0}
                 />
               </div>
@@ -53,14 +63,16 @@ export default function KpiCard({ isLeader, onSaveKpi }: Props) {
                 onClick={() =>
                   setKpiDetails([...kpiDetails, { jobdesk: '', target: 0 }])
                 }
-                className="text-xs text-blue-500"
+                className="text-xs
+                text-cyan-600 dark:text-cyan-400"
               >
                 + Tambah KPI
               </button>
   
               <button
                 onClick={() => onSaveKpi?.(kpiDetails)}
-                className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+                className="bg-cyan-600 hover:bg-cyan-700
+                text-white px-3 py-1 rounded text-sm"
               >
                 Simpan KPI
               </button>

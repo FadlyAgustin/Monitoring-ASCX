@@ -116,20 +116,26 @@ export default function LogDelete() {
       <LogDeleteHeaderSkeleton />
     ) : (
       <>
-      <h1 className="text-2xl font-bold mb-4"> Delete Request Logs</h1>
+      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"> Delete Request Logs</h1>
 
       {/* 🔍 SEARCH + FILTER */}
       <div className="flex gap-2 mb-4">
         <input
           type="text"
           placeholder="Search user..."
-          className="w-full p-2 border rounded-lg"
+          className="w-full p-2 border rounded-lg
+                      bg-white dark:bg-slate-800
+                      text-gray-900 dark:text-white
+                      border-gray-300 dark:border-slate-700"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select
-          className="p-2 border rounded-lg"
+          className="p-2 border rounded-lg
+                    bg-white dark:bg-slate-800
+                    text-gray-900 dark:text-white
+                    border-gray-300 dark:border-slate-700"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -152,18 +158,18 @@ export default function LogDelete() {
             <LogDeleteSkeleton />
           </>
         ) : logs.length === 0 ? (
-          <div className="text-center text-gray-400 border p-4 rounded-lg text-sm">
+          <div className="text-center border p-4 rounded-lg text-sm text-gray-400 dark:bg-slate-800 dark:border-slate-700 dark:text-white">
             🚫 Tidak ada data delete request
           </div>
         ) : (
           logs.map((log) => (
             <div
               key={log.id}
-              className="bg-white shadow-sm w-50 rounded-lg p-3 border text-sm"
+              className=" bg-white dark:bg-slate-800 shadow-sm rounded-lg p-3 border border-gray-200 dark:border-slate-700 text-sm"
             >
               <div className="flex justify-between items-center">
                 
-                <h2 className="font-medium">
+                <h2 className="font-medium text-gray-900 dark:text-white">
                   Task #{log.task_id}
                 </h2>
 
@@ -178,24 +184,24 @@ export default function LogDelete() {
                 </span>
               </div>
 
-              <div className="mt-1 text-gray-600 text-xs">
+              <div className="mt-1 text-xs text-gray-600 dark:text-slate-300">
                 👤 {log.user?.name}
               </div>
 
               <div className="border-b border-gray-400 pb-1 mb-2">
-                <h2 className="font-medium line-clamp-1 text-gray-800 mx-3" title={log.activity}>
+                <h2 className="font-medium line-clamp-1 mx-3 text-gray-800 dark:text-white" title={log.activity}>
                   {log.activity}
                 </h2>
               </div>
 
-              <div className="text-gray-500 text-xs">
+              <div className="text-xs text-gray-500 dark:text-slate-300">
                 📝 {log.reason}
               </div>
 
               <div className="flex justify-between items-center mt-2">
 
                 {/* LEFT: DATE */}
-                <div className="text-gray-400 text-[11px]">
+                <div className="text-[11px] text-gray-400 dark:text-white">
                   {log.requested_at}
                 </div>
 
@@ -234,19 +240,35 @@ export default function LogDelete() {
         <button
           disabled={page === 1}
           onClick={() => fetchLogs(page - 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="px-3 py-1 border rounded
+                    disabled:opacity-50
+
+                    bg-white dark:bg-slate-800
+                    text-gray-700 dark:text-white
+
+                    border-gray-300 dark:border-slate-700
+
+                    hover:bg-gray-50 dark:hover:bg-slate-700"
         >
           Prev
         </button>
 
-        <span className="px-3 py-1">
+        <span className="px-3 py-1 text-gray-700 dark:text-white">
           {page} / {lastPage}
         </span>
 
         <button
           disabled={page === lastPage}
           onClick={() => fetchLogs(page + 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="px-3 py-1 border rounded
+                    disabled:opacity-50
+
+                    bg-white dark:bg-slate-800
+                    text-gray-700 dark:text-white
+
+                    border-gray-300 dark:border-slate-700
+
+                    hover:bg-gray-50 dark:hover:bg-slate-700"
         >
           Next
         </button>
