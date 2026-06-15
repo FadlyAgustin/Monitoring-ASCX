@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun, UserCog } from 'lucide-react'
 import { useDarkMode } from '../../components/ui/DarkMode'
 import { toast } from 'react-hot-toast'
 import { useState, useRef, useEffect } from 'react'
@@ -283,7 +283,27 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     {openProfile && (
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
         <div className="bg-white dark:bg-slate-900 rounded-xl w-full max-w-md p-6 shadow-lg">
-          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Edit Profile</h2>
+          {/* HEADER */}
+          <div className="space-y-1 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900">
+                <UserCog
+                  size={16}
+                  className="text-indigo-600 dark:text-indigo-300"
+                />
+              </div>
+
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Edit Profile
+                </h2>
+                 <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Perbarui informasi akun seperti nama, email, role, dan password jika diperlukan
+                </p>
+              </div>
+            </div>
+
+          </div>
 
           {/* Name */}
           <div className="mb-3">

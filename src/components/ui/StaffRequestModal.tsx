@@ -3,6 +3,7 @@ import axios from "axios";
 import Select from 'react-select'
 import toast from "react-hot-toast";
 import Modal from "./Modal";
+import { Send } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -137,7 +138,28 @@ export default function StaffRequestModal({ open, onClose, users, user, jobTypes
   return (
     <Modal
     open={open}
-    title="Request Task"
+     title={
+      <div className="space-y-1">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+            <Send
+              size={16}
+              className="text-blue-600 dark:text-blue-300"
+            />
+          </div>
+
+        <div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
+            Request Task
+          </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Ajukan task baru untuk dikirim dan diproses oleh supervisor
+          </p>
+          </div>
+        </div>
+
+      </div>
+    }
     onClose={onClose}
     >
 

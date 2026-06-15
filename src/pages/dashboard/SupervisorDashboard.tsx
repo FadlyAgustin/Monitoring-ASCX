@@ -12,6 +12,8 @@ import ImageSlider from '../../components/common/ImageSlider'
 import Select from 'react-select'
 import TableSkeleton from '../skeleton/TableSkeleton'
 import CardSkeleton from '../skeleton/CardSkeleton'
+import { ClipboardList, ClipboardPlus, Radar } from "lucide-react";
+import SupervisorDashboardSkeleton from '../skeleton/SupervisorDashboardSkeleton'
 
 const ITEMS_PER_PAGE = 10
 
@@ -418,12 +420,70 @@ const downloadZip = async (taskId:number) => {
     !f.file_type || !f.file_type.startsWith("image")
   ) || []
 
+  const isDark = document.documentElement.classList.contains("dark")
+
+  const selectStyles = {
+    control: (provided: any) => ({
+      ...provided,
+      backgroundColor: isDark ? "#1e293b" : "#ffffff",
+      borderColor: isDark ? "#334155" : "#d1d5db",
+      color: isDark ? "#fff" : "#111827",
+    }),
+
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: isDark ? "#1e293b" : "#ffffff",
+    }),
+
+    option: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: state.isFocused
+        ? isDark
+          ? "#334155"
+          : "#f3f4f6"
+        : isDark
+        ? "#1e293b"
+        : "#ffffff",
+      color: isDark ? "#fff" : "#111827",
+    }),
+
+    singleValue: (provided: any) => ({
+      ...provided,
+      color: isDark ? "#fff" : "#111827",
+    }),
+
+    input: (provided: any) => ({
+      ...provided,
+      color: isDark ? "#fff" : "#111827",
+    }),
+  }
+
   return (
     <div className="space-y-4 text-gray-900 dark:text-white">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex flex-col gap-3">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h2>
+        
+       {/* Header */}
+        <div className="space-y-4">
+          {loading ? (
+            <SupervisorDashboardSkeleton />
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+                  <Radar size={20} className="text-cyan-600 dark:text-cyan-300" />
+                </div>
+
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                  ASCX Monitoring Dashboard
+                </h1>
+              </div>
+
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Pusat monitoring dan pengelolaan aktivitas Airport Service & Customer Experience (ASCX), yang menyediakan informasi terkait tugas harian, permintaan pekerjaan, progres aktivitas, serta data operasional lainnya untuk mendukung koordinasi dan pengawasan layanan secara menyeluruh.
+              </p>
+            </div>
+          )}
         <div className="flex flex-col sm:flex-row gap-2 w-full">
         {loading ? (
           <>
@@ -526,7 +586,11 @@ const downloadZip = async (taskId:number) => {
           loadingStaff ? (
             <div className="h-10 w-full sm:w-auto md:w-24 bg-gray-200 animate-pulse rounded-lg" />
           ) : (
-            <Button  variant="dark" onClick={() => setOpenAssign(true)}>
+            <Button className="bg-slate-900 dark:bg-cyan-600
+              hover:bg-slate-800 dark:hover:bg-cyan-700
+              text-white px-3 py-2 rounded-lg text-sm
+              flex items-center gap-2" 
+              variant="dark" onClick={() => setOpenAssign(true)}>
               + Task
             </Button>
           )
@@ -758,7 +822,26 @@ const downloadZip = async (taskId:number) => {
 {/* View Task Modal */}
 <Modal
   open={!!viewData}
-  title="Detail Daily Task"
+  title={
+    <div className="flex items-center gap-3">
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-100 dark:bg-cyan-900">
+        <ClipboardList
+          size={16}
+          className="text-cyan-600 dark:text-cyan-300"
+        />
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-gray-900 dark:text-white">
+          Detail Daily Task
+        </h3>
+
+        <p className="text-xs font-normal text-gray-500 dark:text-gray-400">
+          Informasi detail aktivitas, status pekerjaan, deadline, dan lampiran task.
+        </p>
+      </div>
+    </div>
+  }
   onClose={() => setViewData(null)}
 >
   {viewData && (
@@ -931,7 +1014,28 @@ const downloadZip = async (taskId:number) => {
 {/* Create Task Modal */}
 <Modal
   open={openAssign}
-  title="Tambahkan Task ke Staff/Supervisor"
+  title={
+    <div className="flex items-start gap-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+        <ClipboardPlus
+          size={18}
+          className="text-blue-600 dark:text-blue-300"
+        />
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-gray-900 dark:text-white">
+          Tambahkan Task
+        </h3>
+
+        <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md">
+          Buat dan delegasikan tugas kepada Supervisor atau Staff dengan
+          menentukan penerima tugas, deadline, kategori pekerjaan,
+          serta deskripsi aktivitas yang harus diselesaikan.
+        </p>
+      </div>
+    </div>
+  }
   onClose={() => setOpenAssign(false)}
 >
   <div className="space-y-4">
@@ -940,6 +1044,7 @@ const downloadZip = async (taskId:number) => {
     <div>
       <label className="text-sm font-medium text-gray-900 dark:text-white">Pilih Supervisor & Staff</label>
       <Select
+        styles={selectStyles}
         options={staffOptions}
         isSearchable
         isClearable
@@ -965,9 +1070,15 @@ const downloadZip = async (taskId:number) => {
       onChange={e =>
         setForm({ ...form, deadline: e.target.value })
       }
-      className="w-full border rounded-lg
-      px-3 py-2 text-sm
-      focus:ring-2 focus:ring-blue-500 outline-none"
+      className="w-full
+                border rounded-lg
+                px-3 py-2 text-sm
+                bg-white dark:bg-slate-800
+                text-gray-900 dark:text-white
+                border-gray-300 dark:border-slate-700
+                focus:ring-2 focus:ring-blue-500
+                outline-none
+                dark:[color-scheme:dark]"
     />
   </div>
 

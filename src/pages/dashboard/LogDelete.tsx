@@ -3,7 +3,7 @@ import api from "../../services/api"
 import { useAuth } from "../auth/AuthContext"
 import toast from "react-hot-toast"
 import Swal from "sweetalert2"
-import { Check, X } from "lucide-react"
+import { Trash2, Check, X } from "lucide-react"
 import LogDeleteHeaderSkeleton from "../skeleton/LogDeleteHeaderSkeleton"
 import LogDeleteSkeleton from "../skeleton/LogDeleteSkeleton"
 
@@ -116,7 +116,28 @@ export default function LogDelete() {
       <LogDeleteHeaderSkeleton />
     ) : (
       <>
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"> Delete Request Logs</h1>
+      <div className="space-y-4 mb-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-red-900">
+            <Trash2
+              size={20}
+              className="text-red-300 dark:text-red-300"
+            />
+          </div>
+
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            Delete Request Logs
+          </h1>
+        </div>
+
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          Riwayat permintaan penghapusan tugas yang telah diajukan dalam sistem
+          Airport Service & Customer Experience (ASCX), mencakup informasi pemohon,
+          detail tugas yang dihapus, status persetujuan, waktu pengajuan, serta
+          catatan tindak lanjut sebagai bagian dari kontrol dan audit aktivitas
+          operasional.
+        </p>
+      </div>
 
       {/* 🔍 SEARCH + FILTER */}
       <div className="flex gap-2 mb-4">

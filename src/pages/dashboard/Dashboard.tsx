@@ -3,6 +3,7 @@ import axios from 'axios'
 import echo from '../../ts/echo'
 import StatCard from '../../components/cards/StatCard'
 import DashboardSkeleton from '../skeleton/DashboardSkeleton'
+import { Radar } from "lucide-react";
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null)
@@ -81,14 +82,22 @@ export default function Dashboard() {
     <div className="space-y-8">
 
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Dashboard
-        </h1>
-        <p className="text-sm text-gray-600 dark:text-slate-400">
-          Ringkasan aktivitas dan progres pekerjaan hari ini
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-cyan-900">
+            <Radar
+              size={20}
+              className="text-blue-600 dark:text-blue-300"
+            />
+          </div>
+
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            ASCX Monitoring Dashboard
+          </h1>
+        </div>
+
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+         Pusat monitoring dan pengelolaan aktivitas Airport Service & Customer Experience (ASCX), yang menyediakan informasi terkait tugas harian, permintaan pekerjaan, progres aktivitas, serta data operasional lainnya untuk mendukung koordinasi dan pengawasan layanan secara menyeluruh.
         </p>
-      </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

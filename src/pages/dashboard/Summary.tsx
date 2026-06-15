@@ -117,10 +117,10 @@ export default function Summary() {
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-100 dark:bg-yellow-900">
               <BarChart3
                 size={18}
-                className="text-blue-600 dark:text-blue-300"
+                className="text-yellow-600 dark:text-yellow-300"
               />
             </div>
 

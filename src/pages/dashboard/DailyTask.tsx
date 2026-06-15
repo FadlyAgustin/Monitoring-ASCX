@@ -12,7 +12,9 @@ import ImageSlider from '../../components/common/ImageSlider'
 import { DndContext, closestCorners, useDraggable, useDroppable } from '@dnd-kit/core'
 import type { DragEndEvent } from '@dnd-kit/core'
 import toast from "react-hot-toast"
+import { FilePlus, FileEdit, ListTodo, ClipboardList, Trash2 } from 'lucide-react'
 import StaffRequestModal from '../../components/ui/StaffRequestModal'
+import TaskRequestHeaderSkeleton from '../skeleton/TaskHeaderSkeleton'
 
   // SEDIKIT PENJELASAN TIPE DATA UNTUK MEMUDAHKAN PENGEMBANGAN
   interface TaskFile {
@@ -637,9 +639,28 @@ const POSITION_OPTIONS =
 ">
 
 <div className="flex flex-col gap-3">
-  <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-    Daily Task / Activity Log
-  </h2>
+     {loading ? (
+          <TaskRequestHeaderSkeleton />
+        ) : (
+          <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-emerald-900">
+            <ListTodo
+              size={20}
+              className="text-emerald-600 dark:text-emerald-300"
+            />
+          </div>
+
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            Daily Task / Activity Log
+          </h2>
+        </div>
+
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Riwayat aktivitas dan tugas harian yang dilaksanakan oleh tim Airport Service & Customer Experience sebagai sarana monitoring pelaksanaan pekerjaan, tindak lanjut layanan, dan dokumentasi operasional secara terintegrasi.
+          </p>
+        </div>
+        )}
 
 <div className="flex flex-col sm:flex-row gap-2 w-full">
   {loading ? (
@@ -919,7 +940,36 @@ const POSITION_OPTIONS =
       {/* Modal */}
       <Modal
   open={open}
-  title={editingId ? 'Edit Daily Task' : 'Tambah Daily Task'}
+  title={
+    <div className="space-y-1">
+      <div className="flex items-center gap-3">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-emerald-900">
+          {editingId ? (
+            <FileEdit
+              size={16}
+              className="text-yellow-600 dark:text-yellow-300"
+            />
+          ) : (
+            <FilePlus
+              size={16}
+              className="text-blue-600 dark:text-blue-300"
+            />
+          )}
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
+            {editingId ? 'Edit Daily Task' : 'Tambah Daily Task'}
+          </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {editingId
+              ? 'Perbarui informasi task yang sudah ada'
+              : 'Tambahkan task baru untuk staff atau supervisor'}
+          </p>
+        </div>
+      </div>
+    </div>
+  }
   onClose={() => setOpen(false)}
 >
   <div className="space-y-4">
@@ -941,7 +991,7 @@ const POSITION_OPTIONS =
       px-3 py-2 text-sm
       bg-white dark:bg-slate-800
       text-gray-900 dark:text-white
-      focus:ring-2 focus:ring-blue-500 outline-none
+      focus:ring-2 focus:ring-blue-500 outline-none dark:[color-scheme:dark]
         "
       />
     </div>
@@ -1300,7 +1350,26 @@ const POSITION_OPTIONS =
 {/* View Task Modal */}
 <Modal
   open={!!viewTask}
-  title="Detail Daily Task"
+  title={
+      <div className="flex items-center gap-3">
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-100 dark:bg-cyan-900">
+        <ClipboardList
+          size={16}
+          className="text-cyan-600 dark:text-cyan-300"
+        />
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-gray-900 dark:text-white">
+          Detail Daily Task
+        </h3>
+
+        <p className="text-xs font-normal text-gray-500 dark:text-gray-400">
+          Informasi detail aktivitas, status pekerjaan, deadline, dan lampiran task.
+        </p>
+      </div>
+    </div>
+  }
   onClose={() => setViewTask(null)}
 >
   {viewTask && (
@@ -1460,7 +1529,29 @@ const POSITION_OPTIONS =
 
 <Modal
   open={openDeleteModal}
-  title="Request Delete Task"
+   title={
+    <div className="space-y-1">
+      <div className="flex items-center gap-3">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900">
+          <Trash2
+            size={16}
+            className="text-red-600 dark:text-red-300"
+          />
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
+            Request Delete Task
+          </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Penghapusan task akan dikirim sebagai request dan perlu persetujuan supervisor
+          </p>
+        </div>
+      </div>
+
+      
+    </div>
+  }
   onClose={() => setOpenDeleteModal(false)}
 >
   <div className="space-y-4">
@@ -1513,8 +1604,8 @@ const POSITION_OPTIONS =
 
           bg-red-600 hover:bg-red-700
 
-          disabled:bg-gray-400
-          dark:disabled:bg-slate-600
+          disabled:bg-red-400
+          dark:disabled:bg-red-600
         "
       >
         Kirim

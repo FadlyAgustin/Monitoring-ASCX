@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Users } from 'lucide-react'
+import { UserPen, UserPlus, Users } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { createPortal } from "react-dom";
 import { useDebounce } from '../../components/ui/useDebounce'
@@ -254,7 +254,7 @@ useEffect(() => {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow overflow-hidden border dark:border-slate-800">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow overflow-hidden">
       <div className="overflow-x-auto">
       {/* TABLE + CARD */}
         {loading ? (
@@ -263,19 +263,19 @@ useEffect(() => {
             <div className="hidden md:block">
           
             <div className="overflow-x-auto">
-              <table className="min-w-full text-sm">
-              <thead className="bg-gray-100 text-gray-600">
-                  <tr>
+              <table className="min-w-full text-sm text-left divide-y divide-gray-200 dark:divide-slate-800">
+              <thead className="bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 border-b border-gray-200 dark:border-slate-700">
+                  <tr className="border-b border-gray-200 dark:border-slate-700">
                     <th className="px-4 py-3 font-medium text-left">Nama</th>
                     <th className="px-4 py-3 font-medium text-left">Email</th>
                     <th className="px-4 py-3 font-medium text-left">Role</th>
-                    <th className="px-4 py-3 font-medium text-left">Aksi</th>
+                    <th className="px-4 py-3 font-medium text-right">Aksi</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {[...Array(5)].map((_, i) => (
-                    <tr key={i} className="border-t">
+                    <tr key={i}  className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition">
                       {/* Nama */}
                       <td className="px-4 py-3">
                         <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
@@ -323,10 +323,10 @@ useEffect(() => {
         ) : (
           <>
             {/* ================= DESKTOP TABLE ================= */}
-            <div className="hidden md:block overflow-x-auto rounded-lg border">
-              <table className="min-w-full text-sm text-left">
+            <div className="hidden md:block overflow-x-auto rounded-lg">
+              <table className="min-w-full text-sm text-left divide-y divide-gray-200 dark:divide-slate-800">
                 <thead className="bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300">
-                  <tr>
+                  <tr className="border-b border-gray-200 dark:border-slate-700">
                     <th className="px-4 py-3 font-medium">Nama</th>
                     <th className="px-4 py-3 font-medium">Email</th>
                     <th className="px-4 py-3 font-medium">Role</th>
@@ -338,7 +338,7 @@ useEffect(() => {
                   {users.filter((user) => user.id !== 1).map((user) => (
                     <tr
                       key={user.id}
-                      className="border-t dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition"
+                      className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition"
                     >
                       <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{user.name}</td>
 
@@ -464,9 +464,33 @@ useEffect(() => {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
             <div className="bg-white dark:bg-slate-900 rounded-xl p-6 w-96 space-y-4">
 
-            <h2 className="font-semibold text-lg text-gray-900 dark:text-white">
-                {editUser ? 'Edit User' : 'Tambah User'}
-            </h2>
+            <h2 className="flex items-center gap-3 border-b pb-3 dark:border-slate-800">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+              {editUser ? (
+                <UserPen
+                  size={18}
+                  className="text-amber-600 dark:text-amber-300"
+                />
+              ) : (
+                <UserPlus
+                  size={18}
+                  className="text-green-600 dark:text-green-300"
+                />
+              )}
+            </div>
+
+            <div>
+              <p className="font-semibold text-gray-900 dark:text-white">
+                {editUser ? "Edit User" : "Tambah User"}
+              </p>
+
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {editUser
+                  ? "Perbarui informasi pengguna"
+                  : "Tambahkan pengguna baru ke sistem"}
+              </p>
+            </div>
+          </h2>
 
             <input
                 placeholder="Nama"

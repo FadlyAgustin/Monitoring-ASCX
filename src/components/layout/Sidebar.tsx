@@ -1,4 +1,4 @@
-import { Users, Plane } from 'lucide-react'
+import { Radar, ListTodo, History, Trash2, BarChart3, Users, Plane, Briefcase } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../pages/auth/AuthContext'
@@ -38,37 +38,37 @@ const menus: {
   {
     to: '/dashboard',
     label: 'Dashboard',
-    icon: '📊',
+    icon: <Radar className="w-5 h-5 text-cyan-500 group-hover:text-cyan-600 transition" />,
     roles: dashboardRoles,
   },
   {
     to: '/leader',
     label: 'Dashboard',
-    icon: '👔',
+    icon: <Radar className="w-5 h-5 text-cyan-500 group-hover:text-cyan-600 transition" />,
     roles: leaderRoles,
   },
   {
     to: '/daily-task',
     label: 'Daily Task',
-    icon: '📝',
+    icon: <ListTodo className="w-5 h-5 text-emerald-500 group-hover:text-emerald-600 transition" />,
     roles: staffRoles,
   },
   {
     to: '/task-request-logs',
     label: 'Request History',
-    icon: '📜',
+    icon: <History className="w-5 h-5 text-indigo-500 group-hover:text-indigo-600 transition" />,
     roles: allRoles, // semua boleh
   },
   {
     to: '/log-delete',
     label: 'Task Delete',
-    icon: '🗑️',
+    icon: <Trash2 className="w-5 h-5 text-red-500 group-hover:text-red-600 transition" />,
     roles: leaderRoles,
   },
   {
     to: '/summary',
     label: 'Summary',
-    icon: '📅',
+    icon: <BarChart3 className="w-5 h-5 text-yellow-500 group-hover:text-yello-600 transition" />,
     roles: allRoles, // semua boleh
   },
   {
@@ -80,7 +80,7 @@ const menus: {
   {
     to: '/job-type',
     label: 'Job Type',
-    icon: '⚙️',
+    icon: <Briefcase className="w-5 h-5 text-violet-500 group-hover:text-violet-600 transition" />,
     roles: leaderRoles,
   },
 ]

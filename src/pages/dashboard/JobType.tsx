@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { useDebounce } from '../../components/ui/useDebounce'
 import Modal from '../../components/ui/Modal'
 import JobTypeHeaderSkeleton from '../skeleton/JobTypeHeaderSkeleton'
-import { Briefcase } from 'lucide-react'
+import { Briefcase, Pencil, Plus } from 'lucide-react'
 
 export default function JobType() {
   const [data, setData] = useState<any[]>([])
@@ -146,40 +146,43 @@ export default function JobType() {
         {loading ? (
           <JobTypeHeaderSkeleton />
         ) : (
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Job Type</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Kelola kategori pekerjaan
-            </p>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-violet-900">
+              <Briefcase
+                size={20}
+                 className="text-violet-500 dark:text-violet-300"
+              />
+            </div>
+
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                Job Type
+            </h1>
           </div>
 
-          <button
-            onClick={() => {
-              setEditItem(null)
-              setName('')
-              setOpenModal(true)
-            }}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-          >
-            + Tambah
-          </button>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+           Master data kategori pekerjaan yang digunakan dalam sistem ASCX untuk
+           mengelompokkan jenis tugas operasional, mendukung konsistensi input
+           data, serta mempermudah pelacakan dan pelaporan aktivitas kerja.
+          </p>
         </div>
         )}
 
         {/* FILTER */}
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* Search */}
+        <div className="flex w-full sm:w-auto">
           {loading ? (
-            <div className="h-10 w-64 bg-gray-200 animate-pulse rounded-lg" />
+            <div className="h-10 w-full sm:w-64 bg-gray-200 animate-pulse rounded-lg" />
           ) : (
             <input
               placeholder="Cari job type..."
               value={search}
               onChange={(e) => {
-                setSearch(e.target.value)
-                setPage(1)
+                setSearch(e.target.value);
+                setPage(1);
               }}
-              className="border px-3 py-2 rounded-lg text-sm w-64
+              className="w-full sm:w-64 border px-3 py-2 rounded-lg text-sm
                         bg-white dark:bg-slate-800
                         text-gray-900 dark:text-white
                         border-gray-300 dark:border-slate-700"
@@ -187,12 +190,35 @@ export default function JobType() {
           )}
         </div>
 
+        {/* Button */}
+        {loading ? (
+          <div className="h-10 w-full sm:w-28 bg-gray-200 animate-pulse rounded-lg" />
+        ) : (
+        <button
+          onClick={() => {
+            setEditItem(null);
+            setName('');
+            setOpenModal(true);
+          }}
+          className="w-full sm:w-auto inline-flex justify-center items-center
+                    bg-blue-600 hover:bg-blue-700
+                    text-white px-4 py-2 rounded-lg
+                    transition active:scale-[0.98]"
+        >
+          + Job Type
+        </button>
+        )}
+      </div>
+
         {/* TABLE */}
         <div className="bg-white dark:bg-slate-900 rounded-xl shadow overflow-hidden border dark:border-slate-800">
           {loading ? (
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-4 bg-gray-200 rounded animate-pulse" />
+                <div
+                  key={i}
+                  className="h-12 bg-gray-200 dark:bg-slate-700 rounded animate-pulse"
+                />
               ))}
             </div>
           ) : data.length === 0 ? (
@@ -263,23 +289,45 @@ export default function JobType() {
           <Modal
           open={openModal}   
           title={
-    <div className="flex items-center gap-3">
-      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
-        <Briefcase
-          size={16}
-          className="text-blue-600 dark:text-blue-300"
-        />
-      </div>
+            <div className="flex items-center gap-3">
+              <div
+                className={`flex h-8 w-8 items-center justify-center rounded-lg
+                ${
+                  editItem
+                    ? "bg-amber-100 dark:bg-amber-900"
+                    : "bg-violet-100 dark:bg-violet-900"
+                }`}
+              >
+                {editItem ? (
+                  <Pencil
+                    size={16}
+                    className="text-amber-600 dark:text-amber-300"
+                  />
+                ) : (
+                  <Plus
+                    size={16}
+                    className="text-violet-600 dark:text-violet-300"
+                  />
+                )}
+              </div>
 
-      <span>Job Type</span>
-    </div>
-  }
+            <div>
+              <h3>
+                            {editItem ? "Edit Job Type" : "Add Job Type"}
+                          </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {editItem
+                    ? "Perbarui nama kategori pekerjaan yang sudah ada"
+                    : "Tambahkan kategori pekerjaan baru untuk digunakan dalam sistem"}
+                </p>
+            </div>
+              
+            </div>
+          }
           onClose={() => setOpenModal(false)}
         >
 
-              <h2 className="mb-2 text-lg text-gray-900 dark:text-white">
-                {editItem ? 'Edit Job Type' : 'Tambah Job Type'}
-              </h2>
+              
 
               <input
                 placeholder="Nama job type"
