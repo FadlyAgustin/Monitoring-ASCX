@@ -1,9 +1,9 @@
 export default function AppLoading() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-sky-50 via-white to-cyan-50 dark:bg-slate-950">
 
       {/* Grid Background */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-20 dark:opacity-10">
         <div
           className="h-full w-full"
           style={{
@@ -25,12 +25,12 @@ export default function AppLoading() {
         <div className="mb-8 text-center">
           <div className="mb-2 text-4xl">✈️</div>
 
-          <h1 className="text-3xl font-bold tracking-[0.3em] text-white">
+          <h1 className="text-3xl font-bold tracking-[0.3em] text-slate-900 dark:text-white">
             ASCX
           </h1>
 
-          <p className="mt-2 text-sm text-sky-400">
-            Airport Service Coordination Center
+          <p className="mt-2 text-sm text-sky-600 dark:text-sky-400">
+            Airport Service Costumer Experience
           </p>
         </div>
 
@@ -38,18 +38,18 @@ export default function AppLoading() {
         <div className="relative mb-8 h-48 w-48">
 
           {/* Ring 1 */}
-          <div className="absolute inset-0 rounded-full border border-sky-500/20" />
+          <div className="absolute inset-0 rounded-full border border-sky-500/30 dark:border-sky-500/20" />
 
           {/* Ring 2 */}
-          <div className="absolute inset-5 rounded-full border border-sky-500/20" />
+          <div className="absolute inset-5 rounded-full border border-sky-500/30 dark:border-sky-500/20" />
 
           {/* Ring 3 */}
-          <div className="absolute inset-10 rounded-full border border-sky-500/20" />
+          <div className="absolute inset-10 rounded-full border border-sky-500/30 dark:border-sky-500/20" />
 
           {/* Cross */}
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-sky-500/20" />
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-sky-500/30 dark:bg-sky-500/20" />
 
-          <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-sky-500/20" />
+          <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-sky-500/30 dark:bg-sky-500/20" />
 
           {/* Sweep */}
           <div className="radar-sweep absolute inset-0 rounded-full" />
@@ -58,14 +58,15 @@ export default function AppLoading() {
           <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
 
           {/* Aircraft */}
-          <div className="absolute top-[28%] left-[65%] text-sky-400 text-sm animate-pulse">
+          <div className="absolute top-[28%] left-[65%] text-sky-600 dark:text-sky-400 text-sm animate-pulse">
             ✈
           </div>
         </div>
 
         {/* Status */}
-        <div className="w-full max-w-sm rounded-xl border border-sky-500/20 bg-slate-900/60 p-4 backdrop-blur">
-          <p className="mb-4 text-center text-sm text-slate-300">
+       <div
+        className="w-full max-w-sm rounded-xl border border-sky-200 dark:border-sky-500/20 bg-white/80 dark:bg-slate-900/60 p-4 backdrop-blur shadow-lg dark:shadow-none">
+          <p className="mb-4 text-center text-sm text-slate-700 dark:text-slate-300">
             Memuat Sistem Monitoring ASCX
           </p>
 
@@ -82,8 +83,8 @@ export default function AppLoading() {
 
 function StatusItem({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-3 text-slate-300">
-      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+    <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
       <span>{label}</span>
     </div>
   )
