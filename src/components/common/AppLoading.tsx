@@ -1,6 +1,6 @@
 export default function AppLoading() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-sky-50 via-white to-cyan-50 dark:bg-slate-950">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-slate-950">
 
       {/* Grid Background */}
       <div className="absolute inset-0 opacity-20 dark:opacity-10">
